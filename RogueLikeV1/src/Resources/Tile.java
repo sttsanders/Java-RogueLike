@@ -10,6 +10,8 @@ public enum Tile {
     WALL((char)'|', AsciiPanel.brown),
     WATER((char)254, AsciiPanel.blue),
     BOUNDS('x', AsciiPanel.brightBlack),
+    STAIRS_UP('>', AsciiPanel.white),
+	STAIRS_DOWN('<', AsciiPanel.white),
 	PLAYER((char)22, AsciiPanel.blue);
 
     private char glyph;
