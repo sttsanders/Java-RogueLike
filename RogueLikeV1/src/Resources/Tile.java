@@ -15,21 +15,31 @@ public enum Tile {
 	PLAYER((char)22, AsciiPanel.blue);
 
     private char glyph;
-    public char getGlyph() { return glyph; }
+    public char getGlyph() 
+    { 
+    	return glyph; 
+    
+    }
 
     private Color color;
-    public Color getColor() { return color; }
+    public Color getColor() 
+    { 
+    	return color;
+    }
 
-    public boolean isGround() {
+    public boolean isGround() 
+    {
 		return this != WALL && this != BOUNDS;
 	}
 
-	public boolean isDiggable() {
+	public boolean isDiggable() 
+	{
 		return this == Tile.WALL;
 	}
 
     
-    Tile(char glyph, Color color){
+    Tile(char glyph, Color color)
+    {
         this.glyph = glyph;
         this.color = color;
     }
