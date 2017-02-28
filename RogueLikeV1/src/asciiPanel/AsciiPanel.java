@@ -32,6 +32,11 @@ public class AsciiPanel extends JPanel {
      * The color green.
      */
     public static Color green = new Color(0, 128, 0);
+    
+    /**
+     * The color green.
+     */
+    public static Color brown = new Color(107, 59, 16);
 
     /**
      * The color yellow.
@@ -52,11 +57,6 @@ public class AsciiPanel extends JPanel {
      * The color cyan.
      */
     public static Color cyan = new Color(0, 128, 128);
-    
-    /**
-     * The color cyan.
-     */
-    public static Color brown = new Color(153, 51, 0);
 
     /**
      * The color white (light gray).
@@ -251,7 +251,8 @@ public class AsciiPanel extends JPanel {
      * Default size is 80x24.
      */
     public AsciiPanel() {
-        this(80, 24);
+        //width, height
+    	this(120, 50);
     }
 
     /**
