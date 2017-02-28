@@ -2,7 +2,7 @@ package Resources;
 
 import java.awt.Color;
 
-import Entities.Creature;
+import Creatures.Creature;
 
 public class World {
 	private Tile[][] tiles;

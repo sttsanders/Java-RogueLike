@@ -1,7 +1,7 @@
 package Resources;
 
-import AI.PlayerAI;
-import Entities.Creature;
+import Ai.PlayerAi;
+import Creatures.Creature;
 import asciiPanel.AsciiPanel;
 
 public class CreatureFactory {
@@ -14,7 +14,7 @@ public class CreatureFactory {
 	public Creature newPlayer(){
 		Creature player = new Creature(world, '@', AsciiPanel.brightWhite);
 		world.addAtEmptyLocation(player);
-		new PlayerAI(player);
+		new PlayerAi(player);
 		return player;
 	}
 }

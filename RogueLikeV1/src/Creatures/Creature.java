@@ -1,5 +1,10 @@
 package Creatures;
 
+import java.awt.Color;
+
+import Ai.CreatureAi;
+import Resources.World;
+
 public class Creature {
 private World world;
 	
@@ -8,7 +13,7 @@ private World world;
 	
 	private char glyph;
 	private Color color;
-	private CreatureAI ai;
+	private CreatureAi ai;
 	
 	public char getGlyph()
 	{
@@ -20,7 +25,7 @@ private World world;
 		return this.color;
 	}
 	
-	public void setCreatureAi(CreatureAI ai) 
+	public void setCreatureAi(CreatureAi ai) 
 	{ 
 		this.ai = ai; 
 	}

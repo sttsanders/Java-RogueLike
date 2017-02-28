@@ -2,7 +2,7 @@ package Screen;
 
 import java.awt.event.KeyEvent;
 
-import Entities.Creature;
+import Creatures.Creature;
 import Resources.CreatureFactory;
 import Resources.World;
 import Resources.WorldBuilder;
