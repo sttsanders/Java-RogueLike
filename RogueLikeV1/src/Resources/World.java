@@ -45,6 +45,14 @@ public class World {
 		
 	}
 	
+	public void update(){
+		List<Creature> toUpdate = new ArrayList<Creature>(creatures);
+		for (Creature creature : toUpdate){
+			creature.update();
+		}
+	}
+
+	
 	public Tile returnTile(int x, int y)
 	{
 		if (x < 0 || x >= width || y < 0 || y >= height)

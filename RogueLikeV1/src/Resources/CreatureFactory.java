@@ -1,5 +1,6 @@
 package Resources;
 
+import Ai.CopyCatAi;
 import Ai.GhoulAi;
 import Ai.PlayerAi;
 import Creatures.Creature;
@@ -26,6 +27,16 @@ public class CreatureFactory {
 		new GhoulAi(ghoul);
 		return ghoul;
 	}
+	
+	public Creature newCopyCat()
+	{
+		Creature copyCat = new Creature(world, 'C', AsciiPanel.brightRed);
+		System.out.println("adding copyCat");
+		world.addAtEmptyLocation(copyCat);
+		new CopyCatAi(copyCat, this);
+		return copyCat;
+	}
+	
 	
 }
 
