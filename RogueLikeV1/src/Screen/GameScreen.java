@@ -15,8 +15,8 @@ public class GameScreen implements Screen {
 	private int screenHeight;
 	
 	public GameScreen(){
-		screenWidth = 80;
-		screenHeight = 21;
+		screenWidth = 100;
+		screenHeight = 48;
 		createWorld();
 		
 		CreatureFactory creatureFactory = new CreatureFactory(world);
@@ -24,7 +24,7 @@ public class GameScreen implements Screen {
 	}
 	
 	private void createWorld(){
-		world = new WorldBuilder(90, 32)
+		world = new WorldBuilder(120, 68)
 					.makeCaves()
 					.buildWorld();
 	}
