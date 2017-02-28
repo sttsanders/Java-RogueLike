@@ -103,7 +103,7 @@ private World world;
 		if (other == null)
 		{
 			ai.onEnter(x+mx, y+my, world.returnTile(x+mx, y+my));
-			heal();
+
 		}
 		else
 		{
@@ -123,6 +123,7 @@ private World world;
 
 	public void update(){   
 	    ai.onUpdate();  
+	    heal();
 	}
 
 
