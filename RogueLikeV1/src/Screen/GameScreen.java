@@ -19,10 +19,20 @@ public class GameScreen implements Screen {
 		screenHeight = 48;
 		createWorld();
 		
-		CreatureFactory creatureFactory = new CreatureFactory(world);
-		player = creatureFactory.newPlayer();
+		CreatureFactory cF = new CreatureFactory(world);
+		createCreatures(cF);
+		
 	}
 	
+	private void createCreatures(CreatureFactory cF) {
+		player = cF.newPlayer();
+		  
+	    for (int i = 0; i < 8; i++){
+	        cF.newGhoul();
+	    }
+		
+	}
+
 	private void createWorld(){
 		world = new WorldBuilder(120, 68)
 					.makeCaves()
@@ -45,12 +55,22 @@ public class GameScreen implements Screen {
 	}
 
 	private void displayTiles(AsciiPanel terminal, int left, int top) {
-		for (int x = 0; x < screenWidth; x++){
-			for (int y = 0; y < screenHeight; y++){
+
+		for(int x = 0; x < screenWidth ; x++) 
+		{
+			for(int y = 0; y < screenHeight; y++) 
+			{
 				int wx = x + left;
 				int wy = y + top;
-
 				terminal.write(world.returnGlyph(wx, wy), x, y, world.returnColor(wx, wy));
+			}
+		}
+
+		for(Creature c : world.creatures) 
+		{
+			if((c.x >= left && c.x < left + screenWidth) && (c.y >= top && c.y < top + screenHeight)) 
+			{
+				terminal.write(c.getGlyph(), c.x - left, c.y - top, c.getColor());
 			}
 		}
 	}

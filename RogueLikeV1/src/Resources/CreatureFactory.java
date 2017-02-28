@@ -1,5 +1,6 @@
 package Resources;
 
+import Ai.GhoulAi;
 import Ai.PlayerAi;
 import Creatures.Creature;
 import asciiPanel.AsciiPanel;
@@ -17,5 +18,14 @@ public class CreatureFactory {
 		new PlayerAi(player);
 		return player;
 	}
+	
+	public Creature newGhoul()
+	{
+		Creature ghoul = new Creature(world, 'G', AsciiPanel.brightGreen);
+		world.addAtEmptyLocation(ghoul);
+		new GhoulAi(ghoul);
+		return ghoul;
+	}
+	
 }
 

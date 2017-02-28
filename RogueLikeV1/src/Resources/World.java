@@ -1,6 +1,8 @@
 package Resources;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 import Creatures.Creature;
 
@@ -8,7 +10,7 @@ public class World {
 	private Tile[][] tiles;
 	private int width;
 	private int height;
-	
+	public List<Creature> creatures;
 	
 	
 	public int getWidth()
@@ -21,11 +23,26 @@ public class World {
 		return this.height;
 	}
 	
+	public Creature creature(int x, int y){
+	    for (Creature c : creatures){
+	        if (c.x == x && c.y == y)
+	            return c;
+	    }
+	    return null;
+	}
+
+	public void remove(Creature other) {
+	    creatures.remove(other);
+	}
+	
 	public World(Tile[][] t)
 	{
 		this.tiles = t;
 		this.width = tiles.length;
 		this.height = tiles[0].length;
+		
+		creatures = new ArrayList<Creature>();
+		
 	}
 	
 	public Tile returnTile(int x, int y)
@@ -64,6 +81,7 @@ public class World {
 		
 		creature.x = x;
 		creature.y = y;
+		creatures.add(creature);
 	}
 
 	

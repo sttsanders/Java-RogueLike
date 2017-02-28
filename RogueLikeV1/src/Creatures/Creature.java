@@ -37,7 +37,16 @@ private World world;
 	}
 	
 	public void moveBy(int mx, int my){
-		ai.onEnter(x+mx, y+my, world.returnTile(x+mx, y+my));
+	    Creature other = world.creature(x+mx, y+my);
+	  
+	    if (other == null)
+	        ai.onEnter(x+mx, y+my, world.returnTile(x+mx, y+my));
+	    else
+	        attack(other);
+	}
+
+	public void attack(Creature other){
+	    world.remove(other);
 	}
 
 	public void dig(int wx, int wy) {
