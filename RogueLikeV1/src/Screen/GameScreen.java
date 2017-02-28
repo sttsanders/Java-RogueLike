@@ -56,6 +56,30 @@ public class GameScreen implements Screen {
 		displayTiles(terminal, left, top);
 		
 		terminal.write(player.getGlyph(), player.x - left, player.y - top, player.getColor());
+		
+		showHealth(terminal);
+	}
+
+	private void showHealth(AsciiPanel terminal) {
+		double percentage = ((double)player.getHealth() / (double)player.getMaxHealth()) * 100;
+
+		String statistics = player.getHealth() + "/" + player.getMaxHealth();
+		
+
+	    System.out.println(" difference = " + percentage);
+	    if(percentage > 50)
+	    {
+	    	terminal.write(statistics, 100, 1, AsciiPanel.white);
+	    }
+	    else if(percentage > 25 && percentage < 50)
+	    {
+	    	terminal.write(statistics, 100, 1, AsciiPanel.yellow);
+	    }
+	    else
+	    {
+	    	terminal.write(statistics, 100, 1, AsciiPanel.red);
+	    }
+		
 	}
 
 	private void displayTiles(AsciiPanel terminal, int left, int top) {
@@ -78,6 +102,8 @@ public class GameScreen implements Screen {
 			}
 		}
 	}
+	
+	
 	
 	@Override
 	public Screen respondToUserInput(KeyEvent key) {
