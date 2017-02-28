@@ -55,9 +55,9 @@ public class WorldBuilder {
 					//[x-1,y+1][x,y+1][x+1,y+1]
 					//[ x-1,y ][ x,y ][ x+1,y ]
 					//[x-1,y-1][x,y-1][x+1,y-1]
-					for (int xNeighbour = -1; xNeighbour < 2; xNeighbour++)
+					for (int xNeighbour = -1; xNeighbour <= 1; xNeighbour++)
 					{
-						for (int yNeighbour = -1; yNeighbour < 2; yNeighbour++)
+						for (int yNeighbour = -1; yNeighbour <= 1; yNeighbour++)
 						{
 							// if the neighbour position is out of bound just continue 
 							if (x + xNeighbour < 0 || x + xNeighbour >= width ||

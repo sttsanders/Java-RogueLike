@@ -15,6 +15,34 @@ private World world;
 	private Color color;
 	private CreatureAi ai;
 	
+	private int maxHealth;
+	private int currentHealth;
+	private int attackValue;
+	private int defenseValue;
+	
+    public int getMaxHealth() 
+    { 
+    	return maxHealth; 
+    }
+
+    
+    public int getHealth() 
+    { 
+    	return currentHealth; 
+    }
+
+    
+    public int getAttackValue() 
+    { 
+    	return attackValue; 
+    }
+
+    
+    public int getDefenseValue() 
+    { 
+    	return defenseValue; 
+    }
+    
 	public char getGlyph()
 	{
 		return this.glyph;

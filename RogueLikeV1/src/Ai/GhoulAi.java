@@ -8,4 +8,5 @@ public class GhoulAi extends CreatureAi {
 	{
 		super(creature);
 	}
+	
 }

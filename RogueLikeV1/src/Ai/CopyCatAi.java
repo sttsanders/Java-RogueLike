@@ -13,7 +13,7 @@ public class CopyCatAi extends CreatureAi {
 	}
 	
 	public void onUpdate(){
-        if (cloneCounter < 5 && Math.random() < 0.01)
+        if (cloneCounter < 5 && Math.random() < 0.02)
             spread();
     }
  
