@@ -63,10 +63,10 @@ public class GameScreen implements Screen {
 	private void showHealth(AsciiPanel terminal) {
 		double percentage = ((double)player.getHealth() / (double)player.getMaxHealth()) * 100;
 
-		String statistics = player.getHealth() + "/" + player.getMaxHealth();
+		String statistics = "Hitpoints: " + player.getHealth() + "/" + player.getMaxHealth();
 		
 
-	    System.out.println(" difference = " + percentage);
+	    
 	    if(percentage > 50)
 	    {
 	    	terminal.write(statistics, 100, 1, AsciiPanel.white);

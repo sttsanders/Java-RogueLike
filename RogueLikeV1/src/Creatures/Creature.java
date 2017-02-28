@@ -57,7 +57,6 @@ private World world;
 	
 	public void attack(Creature opponent){
         int damageDone = (dice.rollDice(1, 6) + getAttackValue() ) - opponent.getDefenseValue();
-        System.out.println("damage done: " + damageDone);
         if(damageDone < 0)
         {
         	damageDone = 0;
@@ -68,7 +67,6 @@ private World world;
 	
 	public void counterAttack(Creature opponent){
         int damageDone = (dice.rollDice(1, 6) + getAttackValue() ) - opponent.getDefenseValue();
-        System.out.println("damage done: " + damageDone);
         if(damageDone < 0)
         {
         	damageDone = 0;
@@ -78,7 +76,6 @@ private World world;
 
     public void modifyHp(int amount) {
         currentHealth = currentHealth - amount;
-        System.out.println(this.currentHealth);
         //ded
         if (currentHealth < 1)
          world.remove(this);

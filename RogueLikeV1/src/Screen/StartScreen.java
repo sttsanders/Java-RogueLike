@@ -19,13 +19,13 @@ public class StartScreen implements Screen {
 	
     public static void sketchTerminal(AsciiPanel p)
     {
-    	int x = 25;
-    	int y = -1;
+    	int x = 44;
+    	int y = 10;
     	
     	p.write("", 26, ++y);
-    	p.write("          Welcome            ", 26, ++y);
-    	p.write("            to            ", 26, ++y);
-    	p.write("          CULTIST            ", 26, ++y);
+    	p.write("                             Welcome            ", 26, ++y);
+    	p.write("                               to            ", 26, ++y);
+    	p.write("                             CULTIST            ", 26, ++y);
     	p.write("       _______________             ", x, ++y);
     	p.write("      /               \\            ", x, ++y);
     	p.write("     /                 \\           ", x, ++y);
@@ -43,7 +43,12 @@ public class StartScreen implements Screen {
     	p.write("        \\           /              ", x, ++y);
     	p.write("          \\_______/                ", x, ++y);
     	p.write("", 29, ++y);
-    	p.write("Press Enter to Start", 29, ++y);
+    	p.write("", 29, ++y);
+    	p.write("", 29, ++y);
+    	p.write("", 29, ++y);
+    	p.write("", 29, ++y);
+    	p.write("", 29, ++y);
+    	p.write("                   Press Enter to Start", 29, ++y);
     	
 
 
