@@ -31,6 +31,7 @@ public class GameScreen implements Screen {
 	
 	private void createPlayer(CreatureFactory cF) {
 		player = cF.newPlayer(messages);
+		
 	}
 
 	private void displayMessages(AsciiPanel terminal, List<String> messages) {

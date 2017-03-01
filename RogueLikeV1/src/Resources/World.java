@@ -90,6 +90,10 @@ public class World {
 		creature.x = x;
 		creature.y = y;
 		creatures.add(creature);
+		if(creature.getName() == "You")
+		{
+			System.out.println("Player added");
+		}
 	}
 
 	

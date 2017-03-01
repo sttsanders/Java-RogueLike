@@ -2,7 +2,10 @@ package Resources;
 
 import java.util.List;
 
+import Ai.BeeAi;
+import Ai.BeeNestAi;
 import Ai.CopyCatAi;
+import Ai.CopyCatCloneAi;
 import Ai.GhoulAi;
 import Ai.KoboldAi;
 import Ai.PlayerAi;
@@ -35,10 +38,17 @@ public class CreatureFactory {
 	public Creature newCopyCat()
 	{
 		Creature copyCat = new Creature(world, 'C',"Copy Cat", AsciiPanel.brightRed, 20, 5, 1);
-		System.out.println("adding copyCat");
 		world.addAtEmptyLocation(copyCat);
 		new CopyCatAi(copyCat, this);
 		return copyCat;
+	}
+	
+	public Creature newCopyCatCopy()
+	{
+		Creature copyCatClone = new Creature(world, 'c',"Copy Cat Clone", AsciiPanel.brightRed, 20, 5, 1);
+		world.addAtEmptyLocation(copyCatClone);
+		new CopyCatCloneAi(copyCatClone);
+		return copyCatClone;
 	}
 	
 	public Creature newKobold()
@@ -56,10 +66,18 @@ public class CreatureFactory {
 		new QuillBoarAi(quillBoar);
 		return quillBoar;
 	}
+	
+	public Creature newBeeNest()
+	{
+		Creature beeNest = new Creature(world, 'O',"Bee Nest", AsciiPanel.brightCyan, 120, 0, 8);
+		world.addAtEmptyLocation(beeNest);
+		new BeeNestAi(beeNest,this);
+		return beeNest;
+	}
 
 	public void createCreatures(CreatureFactory cF) {
 		// TODO Auto-generated method stub
-	    for (int i = 0; i < 8; i++){
+	    for (int i = 0; i < 20; i++){
 	        cF.newGhoul();
 	    }
 	    
@@ -67,13 +85,25 @@ public class CreatureFactory {
 	        cF.newQuillBoar();
 	    }
 	    
-//	    for (int i = 0; i < 2; i++){
-//	        cF.newCopyCat();
-//	    }
+	    for (int i = 0; i < 2; i++){
+	        cF.newCopyCat();
+	    }
 	    
 	    for (int i = 0; i < 10; i++){
 	        cF.newKobold();
 	    }
+	    
+	    for (int i = 0; i < 2; i++){
+	        cF.newBeeNest();
+	    }
+	}
+
+	public Creature newBee() {
+		// TODO Auto-generated method stub
+		Creature bee = new Creature(world, 'o',"Bee", AsciiPanel.cyan, 5, 1, 0);
+		world.addAtEmptyLocation(bee);
+		new BeeAi(bee);
+		return bee;
 	}
 	
 	

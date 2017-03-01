@@ -6,6 +6,7 @@ import Ai.CreatureAi;
 import Resources.Dice;
 import Resources.World;
 import asciiPanel.AsciiPanel;
+import java.awt.Container;
 
 public class Creature {
 private World world;
@@ -119,14 +120,33 @@ private World world;
     }
     
     public void modifyHp(int amount) {
-        currentHealth = currentHealth - amount;
-        notify("You took " + amount + " damage from the counter attack!");
-        //ded
-        if (currentHealth < 1)
-        {
-        	notify("You ded GG");
-         world.remove(this);
-        }
+        
+    	 	currentHealth -= amount;
+    	    if (currentHealth < 1) {
+    	    	System.out.println("Dead");
+    	    	System.out.println(this.getName());
+    	    	for(Creature c : world.creatures)
+    	    	{
+    	    		System.out.print(c.getName() + " "  + "| " );
+    	    	}
+    	    	System.out.println("");
+    	        world.remove(this);
+    	        world.update();
+    	        for(Creature c : world.creatures)
+    	    	{
+    	    		System.out.print(c.getName() + " " + "| " );
+    	    	}
+    	    	System.out.println("");
+    	    }
+    	
+//    	currentHealth = currentHealth - amount;
+//        notify("You took " + amount + " damage from the counter attack!");
+//        //ded
+//        if (currentHealth < 1)
+//        {
+//        	notify("You ded GG");
+//         world.remove(this);
+//        }
     }
     
 	
@@ -146,6 +166,7 @@ private World world;
 	    this.name = name;
 	}
 	
+
 	public void moveBy(int mx, int my){
 		Creature other = world.creature(x+mx, y+my);
 		
@@ -175,7 +196,7 @@ private World world;
 
 	public void update(){   
 	    ai.onUpdate();  
-	    heal();
+	    //heal();
 	}
 
 

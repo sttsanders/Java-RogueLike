@@ -3,18 +3,18 @@ package Ai;
 import Creatures.Creature;
 import Resources.CreatureFactory;
 
-public class CopyCatAi extends CreatureAi {
+public class BeeNestAi extends CreatureAi{
 	public CreatureFactory f;
 	private int cloneCounter;
 	
-	public CopyCatAi(Creature c,CreatureFactory factory) {
+	public BeeNestAi(Creature c,CreatureFactory factory) {
 		super(c);
 		this.f = factory;
 	}
 	
 	public void onUpdate(){
-        if (cloneCounter < 5 && Math.random() < 0.02)
-        	multiply();
+        if (cloneCounter < 30 && Math.random() < 0.5)
+            multiply();
     }
  
     private void multiply(){
@@ -23,7 +23,7 @@ public class CopyCatAi extends CreatureAi {
   
         if (creature.canEnter(x, y))
         {
-            Creature child = f.newCopyCatCopy();
+            Creature child = f.newBee();
             
             child.x = x;
             child.y = y;
