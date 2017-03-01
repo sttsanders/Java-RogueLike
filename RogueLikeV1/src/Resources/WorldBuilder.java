@@ -32,7 +32,7 @@ public class WorldBuilder {
 	}
 	
 	public WorldBuilder makeCaves() {
-	    return randomizeWorldTiles().smoothGeneratedMap(6);
+	    return randomizeWorldTiles().smoothGeneratedMap(9);
 	}
 	
 	// TO CHANGE (mogelijk kamers)?
