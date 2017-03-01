@@ -4,6 +4,7 @@ import java.util.List;
 
 import Ai.CopyCatAi;
 import Ai.GhoulAi;
+import Ai.KoboldAi;
 import Ai.PlayerAi;
 import Creatures.Creature;
 import asciiPanel.AsciiPanel;
@@ -37,6 +38,14 @@ public class CreatureFactory {
 		world.addAtEmptyLocation(copyCat);
 		new CopyCatAi(copyCat, this);
 		return copyCat;
+	}
+	
+	public Creature newKobold()
+	{
+		Creature kobold = new Creature(world, 'K',"Kobold", AsciiPanel.brightYellow, 15, 6, 0);
+		world.addAtEmptyLocation(kobold);
+		new KoboldAi(kobold);
+		return kobold;
 	}
 	
 	

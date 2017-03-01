@@ -5,6 +5,7 @@ import java.awt.Color;
 import Ai.CreatureAi;
 import Resources.Dice;
 import Resources.World;
+import asciiPanel.AsciiPanel;
 
 public class Creature {
 private World world;
@@ -67,10 +68,34 @@ private World world;
         {
         	damageDone = 0;
         }
-        notify("You hit " + opponent.getName() + " for " + damageDone + " damage");
+        
+        int lifePercentage = calculatePercentage(opponent.getHealth(), opponent.getMaxHealth());
+        String monsterStatus = "";
+        if(lifePercentage > 50)
+	    {
+        	monsterStatus = "healthy.";
+	    }
+	    else if(lifePercentage > 25 && lifePercentage <= 50)
+	    {
+	    	monsterStatus = "wounded.";
+	    }
+	    else
+	    {
+	    	monsterStatus = "almost dead.";
+	    }
+        
+        notify("You hit " + opponent.getName() + " for " + damageDone + " damage. " + opponent.getName() + " is " + monsterStatus);
+        
+        
         opponent.modifyEnemyHp(damageDone);
         
     }
+	
+	private int calculatePercentage(int cH, int mH)
+	{
+		double result =  ((double)cH / (double)mH) * 100;
+		return (int)result;
+	}
 	
 	public void counterAttack(Creature opponent){
 		int damageDone = (dice.rollDice(1, 6) + getAttackValue() ) - opponent.getDefenseValue();

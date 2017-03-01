@@ -35,8 +35,12 @@ public class GameScreen implements Screen {
 	        cF.newGhoul();
 	    }
 	    
-	    for (int i = 0; i < 2; i++){
-	        cF.newCopyCat();
+//	    for (int i = 0; i < 2; i++){
+//	        cF.newCopyCat();
+//	    }
+	    
+	    for (int i = 0; i < 10; i++){
+	        cF.newKobold();
 	    }
 		
 	}
@@ -75,17 +79,17 @@ public class GameScreen implements Screen {
 	}
 
 	private void showHealth(AsciiPanel terminal) {
-		double percentage = ((double)player.getHealth() / (double)player.getMaxHealth()) * 100;
-
-		String statistics = "Hitpoints: " + player.getHealth() + "/" + player.getMaxHealth();
+		int localHealth = player.getHealth();
+		int localMaxhealth = player.getMaxHealth();
+		int percentage = calculatePercentage(localHealth, localMaxhealth);
 		
-
-	    
+		String statistics = "Hitpoints: " + localHealth + "/" + localMaxhealth;
+		
 	    if(percentage > 50)
 	    {
 	    	terminal.write(statistics, 100, 1, AsciiPanel.white);
 	    }
-	    else if(percentage > 25 && percentage < 50)
+	    else if(percentage > 25 && percentage <= 50)
 	    {
 	    	terminal.write(statistics, 100, 1, AsciiPanel.yellow);
 	    }
@@ -96,6 +100,12 @@ public class GameScreen implements Screen {
 		
 	}
 
+	private int calculatePercentage(int cH, int mH)
+	{
+		double result =  ((double)cH / (double)mH) * 100;
+		return (int)result;
+	}
+	
 	private void displayTiles(AsciiPanel terminal, int left, int top) {
 
 		for(int x = 0; x < screenWidth ; x++) 
