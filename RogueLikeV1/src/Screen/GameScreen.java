@@ -24,25 +24,13 @@ public class GameScreen implements Screen {
 		createWorld();
 		
 		CreatureFactory cF = new CreatureFactory(world);
-		createCreatures(cF);
+		cF.createCreatures(cF);
+		createPlayer(cF);
 		
 	}
 	
-	private void createCreatures(CreatureFactory cF) {
+	private void createPlayer(CreatureFactory cF) {
 		player = cF.newPlayer(messages);
-		  
-	    for (int i = 0; i < 8; i++){
-	        cF.newGhoul();
-	    }
-	    
-//	    for (int i = 0; i < 2; i++){
-//	        cF.newCopyCat();
-//	    }
-	    
-	    for (int i = 0; i < 10; i++){
-	        cF.newKobold();
-	    }
-		
 	}
 
 	private void displayMessages(AsciiPanel terminal, List<String> messages) {
