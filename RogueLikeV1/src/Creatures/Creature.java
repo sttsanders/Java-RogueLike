@@ -16,6 +16,7 @@ private World world;
 	private Color color;
 	private CreatureAi ai;
 	
+	private String name;
 	private int maxHealth;
 	private int currentHealth;
 	private int attackValue;
@@ -25,6 +26,11 @@ private World world;
     public int getMaxHealth() 
     { 
     	return maxHealth; 
+    }
+    
+    public String getName()
+    {
+    	return name;
     }
 
     
@@ -61,24 +67,41 @@ private World world;
         {
         	damageDone = 0;
         }
-        opponent.modifyHp(damageDone);
+        notify("You hit " + opponent.getName() + " for " + damageDone + " damage");
+        opponent.modifyEnemyHp(damageDone);
         
     }
 	
 	public void counterAttack(Creature opponent){
-        int damageDone = (dice.rollDice(1, 6) + getAttackValue() ) - opponent.getDefenseValue();
+		int damageDone = (dice.rollDice(1, 6) + getAttackValue() ) - opponent.getDefenseValue();
         if(damageDone < 0)
         {
         	damageDone = 0;
         }
         opponent.modifyHp(damageDone);
+        
     }
 
-    public void modifyHp(int amount) {
+    public void modifyEnemyHp(int amount) {
         currentHealth = currentHealth - amount;
+        notify(this.getName() + " took " + amount + " damage from the counter attack!");
         //ded
         if (currentHealth < 1)
+        {
+        	notify("The creature dies.");
+         	world.remove(this);
+        }
+    }
+    
+    public void modifyHp(int amount) {
+        currentHealth = currentHealth - amount;
+        notify("You took " + amount + " damage from the counter attack!");
+        //ded
+        if (currentHealth < 1)
+        {
+        	notify("You ded GG");
          world.remove(this);
+        }
     }
     
 	
@@ -87,7 +110,7 @@ private World world;
 		this.ai = ai; 
 	}
 	
-	public Creature(World world, char glyph, Color color, int maxHp, int attack, int defense){
+	public Creature(World world, char glyph, String name, Color color, int maxHp, int attack, int defense){
 	    this.world = world;
 	    this.glyph = glyph;
 	    this.color = color;
@@ -95,6 +118,7 @@ private World world;
 	    this.currentHealth = maxHp;
 	    this.attackValue = attack;
 	    this.defenseValue = defense;
+	    this.name = name;
 	}
 	
 	public void moveBy(int mx, int my){
@@ -108,7 +132,7 @@ private World world;
 		else
 		{
 			attack(other);
-			other.attack(this);
+			other.counterAttack(this);
 		}
 	}
 	
@@ -120,6 +144,9 @@ private World world;
 		}
 	}
 
+	public void notify(String message, Object ... params){
+	    ai.onNotify(String.format(message, params));
+	}
 
 	public void update(){   
 	    ai.onUpdate();  

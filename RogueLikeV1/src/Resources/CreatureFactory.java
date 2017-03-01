@@ -1,5 +1,7 @@
 package Resources;
 
+import java.util.List;
+
 import Ai.CopyCatAi;
 import Ai.GhoulAi;
 import Ai.PlayerAi;
@@ -13,16 +15,16 @@ public class CreatureFactory {
 		this.world = world;
 	}
 	
-	public Creature newPlayer(){
-		Creature player = new Creature(world, '@', AsciiPanel.brightWhite, 150, 10, 10);
+	public Creature newPlayer(List<String> messages){
+		Creature player = new Creature(world, '@',"You", AsciiPanel.brightWhite, 150, 10, 10);
 		world.addAtEmptyLocation(player);
-		new PlayerAi(player);
+		new PlayerAi(player, messages);
 		return player;
 	}
 	
 	public Creature newGhoul()
 	{
-		Creature ghoul = new Creature(world, 'G', AsciiPanel.brightGreen, 70, 15, 5);
+		Creature ghoul = new Creature(world, 'G',"Ghoul", AsciiPanel.brightGreen, 70, 15, 5);
 		world.addAtEmptyLocation(ghoul);
 		new GhoulAi(ghoul);
 		return ghoul;
@@ -30,7 +32,7 @@ public class CreatureFactory {
 	
 	public Creature newCopyCat()
 	{
-		Creature copyCat = new Creature(world, 'C', AsciiPanel.brightRed, 20, 5, 1);
+		Creature copyCat = new Creature(world, 'C',"Copy Cat", AsciiPanel.brightRed, 20, 5, 1);
 		System.out.println("adding copyCat");
 		world.addAtEmptyLocation(copyCat);
 		new CopyCatAi(copyCat, this);
