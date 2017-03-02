@@ -74,13 +74,21 @@ public class World {
 	
 	public void dig(int x, int y) {
 	    if (returnTile(x,y).isDiggable())
-	        tiles[x][y] = Tile.FLOOR;
+	    {
+	    	tiles[x][y] = Tile.FLOOR;
+		}
 	}
 	
+	/**
+	 * adds creature to random location on the grid.
+	 * @param creature
+	 */
 	public void addAtEmptyLocation(Creature creature){
 		int x;
 		int y;
 		
+		
+		//create random coordinate between 0 and screen width and 0 and screen height
 		do {
 			x = (int)(Math.random() * width);
 			y = (int)(Math.random() * height);
@@ -90,10 +98,6 @@ public class World {
 		creature.x = x;
 		creature.y = y;
 		creatures.add(creature);
-		if(creature.getName() == "You")
-		{
-			System.out.println("Player added");
-		}
 	}
 
 	

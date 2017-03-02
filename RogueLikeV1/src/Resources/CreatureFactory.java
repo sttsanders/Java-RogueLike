@@ -20,6 +20,11 @@ public class CreatureFactory {
 		this.world = world;
 	}
 	
+	/**
+	 * 
+	 * @param messages
+	 * @return
+	 */
 	public Creature newPlayer(List<String> messages){
 		Creature player = new Creature(world, '@',"You", AsciiPanel.brightWhite, 150, 10, 10);
 		world.addAtEmptyLocation(player);
@@ -27,6 +32,10 @@ public class CreatureFactory {
 		return player;
 	}
 	
+	/**
+	 * Creates new Ghoul object and inserts it into the world
+	 * @return
+	 */
 	public Creature newGhoul()
 	{
 		Creature ghoul = new Creature(world, 'G',"Ghoul", AsciiPanel.brightGreen, 70, 15, 5);
@@ -35,6 +44,10 @@ public class CreatureFactory {
 		return ghoul;
 	}
 	
+	/**
+	 * Creates new CopyCat object and inserts it into the world
+	 * @return
+	 */
 	public Creature newCopyCat()
 	{
 		Creature copyCat = new Creature(world, 'C',"Copy Cat", AsciiPanel.brightRed, 20, 5, 1);
@@ -43,6 +56,10 @@ public class CreatureFactory {
 		return copyCat;
 	}
 	
+	/**
+	 * Creates new CopyCatClone object and inserts it into the world
+	 * @return
+	 */
 	public Creature newCopyCatCopy()
 	{
 		Creature copyCatClone = new Creature(world, 'c',"Copy Cat Clone", AsciiPanel.brightRed, 20, 5, 1);
@@ -51,6 +68,10 @@ public class CreatureFactory {
 		return copyCatClone;
 	}
 	
+	/**
+	 * Creates new Kobold object and inserts it into the world
+	 * @return
+	 */
 	public Creature newKobold()
 	{
 		Creature kobold = new Creature(world, 'K',"Kobold", AsciiPanel.brightYellow, 15, 6, 0);
@@ -59,6 +80,10 @@ public class CreatureFactory {
 		return kobold;
 	}
 	
+	/**
+	 * Creates new Quillboar object and inserts it into the world
+	 * @return
+	 */
 	public Creature newQuillBoar()
 	{
 		Creature quillBoar = new Creature(world, 'Q',"Quillboar", AsciiPanel.brightMagenta, 80, 12, 4);
@@ -67,14 +92,22 @@ public class CreatureFactory {
 		return quillBoar;
 	}
 	
+	/**
+	 * Creates new Beenest object and inserts it into the world
+	 * @return
+	 */
 	public Creature newBeeNest()
 	{
-		Creature beeNest = new Creature(world, 'O',"Bee Nest", AsciiPanel.brightCyan, 120, 0, 8);
+		Creature beeNest = new Creature(world, 'B',"Bee Nest", AsciiPanel.brightCyan, 120, 0, 8);
 		world.addAtEmptyLocation(beeNest);
 		new BeeNestAi(beeNest,this);
 		return beeNest;
 	}
 
+	/**
+	 * Creates creatures for world seeding
+	 * @param cF
+	 */
 	public void createCreatures(CreatureFactory cF) {
 		// TODO Auto-generated method stub
 	    for (int i = 0; i < 20; i++){
@@ -98,9 +131,13 @@ public class CreatureFactory {
 	    }
 	}
 
+	/**
+	 * Creates new Bee object and inserts it into the world
+	 * @return
+	 */
 	public Creature newBee() {
 		// TODO Auto-generated method stub
-		Creature bee = new Creature(world, 'o',"Bee", AsciiPanel.cyan, 5, 1, 0);
+		Creature bee = new Creature(world, 'b',"Bee", AsciiPanel.cyan, 5, 1, 0);
 		world.addAtEmptyLocation(bee);
 		new BeeAi(bee);
 		return bee;

@@ -63,6 +63,10 @@ private World world;
 		return this.color;
 	}
 	
+	/**
+	 * method for attacking the opponent. Calculates damage (from Dice method) and allows for monster status
+	 * @param opponent
+	 */
 	public void attack(Creature opponent){
         int damageDone = (dice.rollDice(1, 6) + getAttackValue() ) - opponent.getDefenseValue();
         if(damageDone < 0)
@@ -92,12 +96,21 @@ private World world;
         
     }
 	
+	/**
+	 * method for calculating life (currentHealth divided by maxHealth)
+	 * @param cH
+	 * @param mH
+	 */
 	private int calculatePercentage(int cH, int mH)
 	{
 		double result =  ((double)cH / (double)mH) * 100;
 		return (int)result;
 	}
 	
+	/**
+	 * method for attacking the opponent. Used to attack the player. 
+	 * @param opponent
+	 */
 	public void counterAttack(Creature opponent){
 		int damageDone = (dice.rollDice(1, 6) + getAttackValue() ) - opponent.getDefenseValue();
         if(damageDone < 0)
@@ -108,6 +121,10 @@ private World world;
         
     }
 
+	/**
+	 * modifies enemy hp and shows amount of damage on screen. on enemy death remove enemy
+	 * @param amount
+	 */
     public void modifyEnemyHp(int amount) {
         currentHealth = currentHealth - amount;
         notify(this.getName() + " took " + amount + " damage from the counter attack!");
@@ -119,34 +136,17 @@ private World world;
         }
     }
     
+    /**
+     * modifies player hp and shows amount of damage on screen. on death remove enemy
+     * @param amount
+     */
     public void modifyHp(int amount) {
         
     	 	currentHealth -= amount;
+    	 	notify("You took " + amount + " damage from the counter attack!");
     	    if (currentHealth < 1) {
-    	    	System.out.println("Dead");
-    	    	System.out.println(this.getName());
-    	    	for(Creature c : world.creatures)
-    	    	{
-    	    		System.out.print(c.getName() + " "  + "| " );
-    	    	}
-    	    	System.out.println("");
     	        world.remove(this);
-    	        world.update();
-    	        for(Creature c : world.creatures)
-    	    	{
-    	    		System.out.print(c.getName() + " " + "| " );
-    	    	}
-    	    	System.out.println("");
     	    }
-    	
-//    	currentHealth = currentHealth - amount;
-//        notify("You took " + amount + " damage from the counter attack!");
-//        //ded
-//        if (currentHealth < 1)
-//        {
-//        	notify("You ded GG");
-//         world.remove(this);
-//        }
     }
     
 	
@@ -167,6 +167,11 @@ private World world;
 	}
 	
 
+	/**
+	 * allows entity to enter new square. On enter checks if new square contains enemy. If so, attacks enemy
+	 * @param mx
+	 * @param my
+	 */
 	public void moveBy(int mx, int my){
 		Creature other = world.creature(x+mx, y+my);
 		
@@ -182,6 +187,9 @@ private World world;
 		}
 	}
 	
+	/**
+	 * heals player 1 hp per method call. 
+	 */
 	public void heal()
 	{
 		if(currentHealth < maxHealth )
@@ -200,10 +208,21 @@ private World world;
 	}
 
 
+	/**
+	 * allows player to dig through walls for debug purposes. Might become an item. 
+	 * @param wx
+	 * @param wy
+	 */
 	public void dig(int wx, int wy) {
 		world.dig(wx, wy);
 	}
 	
+	/**
+	 * checks if tile to enter is actually valid and doesn't contain a monster.
+	 * @param wx
+	 * @param wy
+	 * @return
+	 */
 	public boolean canEnter(int wx, int wy) {
 		return world.returnTile(wx, wy).isGround() && world.creature(wx, wy) == null;
 	}
