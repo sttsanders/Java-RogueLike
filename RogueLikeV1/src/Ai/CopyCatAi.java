@@ -21,12 +21,13 @@ public class CopyCatAi extends CreatureAi {
         int x = creature.x + (int)(Math.random() * 11) - 5;
         int y = creature.y + (int)(Math.random() * 11) - 5;
   
-        if (creature.canEnter(x, y))
+        if (creature.canEnter(x, y, creature.z))
         {
-            Creature child = f.newCopyCatCopy();
+            Creature child = f.newCopyCatCopy(creature.z);
             
             child.x = x;
             child.y = y;
+            child.z = creature.z;
             cloneCounter++;
         }
         else

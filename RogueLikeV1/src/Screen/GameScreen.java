@@ -44,9 +44,9 @@ public class GameScreen implements Screen {
 	}
 	
 	private void createWorld(){
-		world = new WorldBuilder(120, 68)
+		world = new WorldBuilder(120, 68, 6)
 					.makeCaves()
-					.buildWorld();
+					.build();
 	}
 	
 	public int getScrollX() { return Math.max(0, Math.min(player.x - screenWidth / 2, world.getWidth() - screenWidth)); }
@@ -64,6 +64,7 @@ public class GameScreen implements Screen {
 		terminal.write(player.getGlyph(), player.x - left, player.y - top, player.getColor());
 		
 		showHealth(terminal);
+		//showLevel(terminal);
 		displayMessages(terminal, messages);
 	}
 
@@ -89,32 +90,55 @@ public class GameScreen implements Screen {
 		
 	}
 
+	private void showLevel(AsciiPanel terminal)
+	{
+		String statistics = "CurrentFloor: " + world.getDepth();
+
+		terminal.write(statistics, 100, 2, AsciiPanel.white);
+	}
 	private int calculatePercentage(int cH, int mH)
 	{
 		double result =  ((double)cH / (double)mH) * 100;
 		return (int)result;
 	}
 	
+//	private void displayTiles(AsciiPanel terminal, int left, int top) {
+//
+//		for(int x = 0; x < screenWidth ; x++) 
+//		{
+//			for(int y = 0; y < screenHeight; y++) 
+//			{
+//				int wx = x + left;
+//				int wy = y + top;
+//				terminal.write(world.returnGlyph(wx, wy, player.z), x, y, world.returnColor(wx, wy, player.z));
+//			}
+//		}
+//
+//		for(Creature c : world.creatures) 
+//		{
+//			if((c.x >= left && c.x < left + screenWidth) && (c.y >= top && c.y < top + screenHeight)) 
+//			{
+//				terminal.write(c.getGlyph(), c.x - left, c.y - top, c.getColor());
+//			}
+//		}
+//	}
 	private void displayTiles(AsciiPanel terminal, int left, int top) {
-
-		for(int x = 0; x < screenWidth ; x++) 
-		{
-			for(int y = 0; y < screenHeight; y++) 
-			{
+		for (int x = 0; x < screenWidth; x++){
+			for (int y = 0; y < screenHeight; y++){
 				int wx = x + left;
 				int wy = y + top;
-				terminal.write(world.returnGlyph(wx, wy), x, y, world.returnColor(wx, wy));
-			}
-		}
 
-		for(Creature c : world.creatures) 
-		{
-			if((c.x >= left && c.x < left + screenWidth) && (c.y >= top && c.y < top + screenHeight)) 
-			{
-				terminal.write(c.getGlyph(), c.x - left, c.y - top, c.getColor());
+				Creature creature = world.returnCreature(wx, wy, player.z);
+				if (creature != null)
+					terminal.write(creature.getGlyph(), creature.x - left, creature.y - top, creature.getColor());
+				else
+					terminal.write(world.returnGlyph(wx, wy, player.z), x, y, world.returnColor(wx, wy, player.z));
 			}
 		}
 	}
+
+	
+
 	
 	
 	
@@ -123,18 +147,23 @@ public class GameScreen implements Screen {
 		switch (key.getKeyCode()){
 		case KeyEvent.VK_ESCAPE: return new MenuScreen();
 		case KeyEvent.VK_LEFT:
-		case KeyEvent.VK_A: player.moveBy(-1, 0); break;
+		case KeyEvent.VK_A: player.moveBy(-1, 0, 0); break;
 		case KeyEvent.VK_RIGHT:
-		case KeyEvent.VK_D: player.moveBy( 1, 0); break;
+		case KeyEvent.VK_D: player.moveBy( 1, 0, 0); break;
 		case KeyEvent.VK_UP:
-		case KeyEvent.VK_W: player.moveBy( 0,-1); break;
+		case KeyEvent.VK_W: player.moveBy( 0,-1, 0); break;
 		case KeyEvent.VK_DOWN:
-		case KeyEvent.VK_S: player.moveBy( 0, 1); break;
-		case KeyEvent.VK_Y: player.moveBy(-1,-1); break;
-		case KeyEvent.VK_U: player.moveBy( 1,-1); break;
-		case KeyEvent.VK_B: player.moveBy(-1, 1); break;
-		case KeyEvent.VK_N: player.moveBy( 1, 1); break;
+		case KeyEvent.VK_S: player.moveBy( 0, 1, 0); break;
+		case KeyEvent.VK_Y: player.moveBy(-1,-1, 0); break;
+		case KeyEvent.VK_U: player.moveBy( 1,-1, 0); break;
+		case KeyEvent.VK_B: player.moveBy(-1, 1, 0); break;
+		case KeyEvent.VK_N: player.moveBy( 1, 1, 0); break;
 		case KeyEvent.VK_SPACE:  break;
+		}
+		
+		switch (key.getKeyChar()){
+		case '<': player.moveBy( 0, 0, -1); break;
+		case '>': player.moveBy( 0, 0, 1); break;
 		}
 		world.update();
 		return this;

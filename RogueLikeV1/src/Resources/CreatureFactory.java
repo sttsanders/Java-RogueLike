@@ -27,7 +27,7 @@ public class CreatureFactory {
 	 */
 	public Creature newPlayer(List<String> messages){
 		Creature player = new Creature(world, '@',"You", AsciiPanel.brightWhite, 150, 10, 10);
-		world.addAtEmptyLocation(player);
+		world.addAtEmptyLocation(player, 0);
 		new PlayerAi(player, messages);
 		return player;
 	}
@@ -36,10 +36,10 @@ public class CreatureFactory {
 	 * Creates new Ghoul object and inserts it into the world
 	 * @return
 	 */
-	public Creature newGhoul()
+	public Creature newGhoul(int depth)
 	{
 		Creature ghoul = new Creature(world, 'G',"Ghoul", AsciiPanel.brightGreen, 70, 15, 5);
-		world.addAtEmptyLocation(ghoul);
+		world.addAtEmptyLocation(ghoul, depth);
 		new GhoulAi(ghoul);
 		return ghoul;
 	}
@@ -48,10 +48,10 @@ public class CreatureFactory {
 	 * Creates new CopyCat object and inserts it into the world
 	 * @return
 	 */
-	public Creature newCopyCat()
+	public Creature newCopyCat(int depth)
 	{
 		Creature copyCat = new Creature(world, 'C',"Copy Cat", AsciiPanel.brightRed, 20, 5, 1);
-		world.addAtEmptyLocation(copyCat);
+		world.addAtEmptyLocation(copyCat, depth);
 		new CopyCatAi(copyCat, this);
 		return copyCat;
 	}
@@ -60,10 +60,10 @@ public class CreatureFactory {
 	 * Creates new CopyCatClone object and inserts it into the world
 	 * @return
 	 */
-	public Creature newCopyCatCopy()
+	public Creature newCopyCatCopy(int depth)
 	{
 		Creature copyCatClone = new Creature(world, 'c',"Copy Cat Clone", AsciiPanel.brightRed, 20, 5, 1);
-		world.addAtEmptyLocation(copyCatClone);
+		world.addAtEmptyLocation(copyCatClone, depth);
 		new CopyCatCloneAi(copyCatClone);
 		return copyCatClone;
 	}
@@ -72,10 +72,10 @@ public class CreatureFactory {
 	 * Creates new Kobold object and inserts it into the world
 	 * @return
 	 */
-	public Creature newKobold()
+	public Creature newKobold(int depth)
 	{
 		Creature kobold = new Creature(world, 'K',"Kobold", AsciiPanel.brightYellow, 15, 6, 0);
-		world.addAtEmptyLocation(kobold);
+		world.addAtEmptyLocation(kobold, depth);
 		new KoboldAi(kobold);
 		return kobold;
 	}
@@ -84,10 +84,10 @@ public class CreatureFactory {
 	 * Creates new Quillboar object and inserts it into the world
 	 * @return
 	 */
-	public Creature newQuillBoar()
+	public Creature newQuillBoar(int depth)
 	{
 		Creature quillBoar = new Creature(world, 'Q',"Quillboar", AsciiPanel.brightMagenta, 80, 12, 4);
-		world.addAtEmptyLocation(quillBoar);
+		world.addAtEmptyLocation(quillBoar, depth);
 		new QuillBoarAi(quillBoar);
 		return quillBoar;
 	}
@@ -96,10 +96,10 @@ public class CreatureFactory {
 	 * Creates new Beenest object and inserts it into the world
 	 * @return
 	 */
-	public Creature newBeeNest()
+	public Creature newBeeNest(int depth)
 	{
 		Creature beeNest = new Creature(world, 'B',"Bee Nest", AsciiPanel.brightCyan, 120, 0, 8);
-		world.addAtEmptyLocation(beeNest);
+		world.addAtEmptyLocation(beeNest, depth);
 		new BeeNestAi(beeNest,this);
 		return beeNest;
 	}
@@ -110,35 +110,39 @@ public class CreatureFactory {
 	 */
 	public void createCreatures(CreatureFactory cF) {
 		// TODO Auto-generated method stub
-	    for (int i = 0; i < 20; i++){
-	        cF.newGhoul();
-	    }
-	    
-	    for (int i = 0; i < 12; i++){
-	        cF.newQuillBoar();
-	    }
-	    
-	    for (int i = 0; i < 2; i++){
-	        cF.newCopyCat();
-	    }
-	    
-	    for (int i = 0; i < 10; i++){
-	        cF.newKobold();
-	    }
-	    
-	    for (int i = 0; i < 2; i++){
-	        cF.newBeeNest();
-	    }
+		for (int z = 0; z < world.getDepth(); z++)
+		{
+//			for (int i = 0; i < 1; i++){
+//		        cF.newGhoul(z);
+//		    }
+//		
+//		    for (int i = 0; i < 1; i++){
+//		        cF.newQuillBoar(z);
+//		    }
+		    
+//		    for (int i = 0; i < 0; i++){
+//		        cF.newCopyCat(z);
+//		    }
+		    
+		    for (int i = 0; i < 1; i++){
+		    	System.out.println("Generation z = " + z);
+		        cF.newKobold(z);
+		    }
+//		    
+//		    for (int i = 0; i < 1; i++){
+//		        cF.newBeeNest(z);
+//		    }
+		}
 	}
 
 	/**
 	 * Creates new Bee object and inserts it into the world
 	 * @return
 	 */
-	public Creature newBee() {
+	public Creature newBee(int depth) {
 		// TODO Auto-generated method stub
 		Creature bee = new Creature(world, 'b',"Bee", AsciiPanel.cyan, 5, 1, 0);
-		world.addAtEmptyLocation(bee);
+		world.addAtEmptyLocation(bee, depth);
 		new BeeAi(bee);
 		return bee;
 	}

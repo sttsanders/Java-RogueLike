@@ -4,15 +4,18 @@ import java.awt.Color;
 
 import Ai.CreatureAi;
 import Resources.Dice;
+import Resources.Tile;
 import Resources.World;
 import asciiPanel.AsciiPanel;
 import java.awt.Container;
+import java.io.IOException;
 
 public class Creature {
 private World world;
 	
 	public int x;
 	public int y;
+	public int z;
 	
 	private char glyph;
 	private Color color;
@@ -172,19 +175,35 @@ private World world;
 	 * @param mx
 	 * @param my
 	 */
-	public void moveBy(int mx, int my){
-		Creature other = world.creature(x+mx, y+my);
+	public void moveBy(int mx, int my, int mz){
+		if (mx==0 && my==0 && mz==0) {
+			return;
+		}
+		System.out.println("mz moveBy = " + mz);
+		System.out.println("z moveBy = " + z);
+		System.out.println("----------------");
+		Tile tile = world.returnTile(x+mx, y+my, z+mz);
+		
+		Creature other = world.returnCreature(x+mx, y+my, z+mz);
+		
+		for(Creature c : world.creatures)
+		{
+			System.out.print(c.getName() + ".. " + c.z + " | ");
+		}
 		
 		if (other == null)
 		{
-			ai.onEnter(x+mx, y+my, world.returnTile(x+mx, y+my));
-
+			for(Creature c : world.creatures)
+			{
+				System.out.println(c.getName());
+			}
+			ai.onEnter(x+mx, y+my, z+mz, tile);
 		}
 		else
 		{
 			attack(other);
-			other.counterAttack(this);
 		}
+
 	}
 	
 	/**
@@ -213,9 +232,10 @@ private World world;
 	 * @param wx
 	 * @param wy
 	 */
-	public void dig(int wx, int wy) {
-		world.dig(wx, wy);
+	public void dig(int wx, int wy, int wz) {
+		world.dig(wx, wy, wz);
 	}
+
 	
 	/**
 	 * checks if tile to enter is actually valid and doesn't contain a monster.
@@ -223,7 +243,9 @@ private World world;
 	 * @param wy
 	 * @return
 	 */
-	public boolean canEnter(int wx, int wy) {
-		return world.returnTile(wx, wy).isGround() && world.creature(wx, wy) == null;
+	public boolean canEnter(int wx, int wy, int wz) {
+		return world.returnTile(wx, wy, wz).isGround() && world.returnCreature(wx, wy, wz) == null;
 	}
+
+
 }
