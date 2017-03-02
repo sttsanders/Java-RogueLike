@@ -1,16 +1,14 @@
-package Creatures;
+package Screen;
 
 import java.awt.event.KeyEvent;
 
-import Screen.GameScreen;
-import Screen.Screen;
 import asciiPanel.AsciiPanel;
 
 public class LoseScreen implements Screen {
 
 	@Override
 	public void displayOutput(AsciiPanel terminal) {
-		terminal.write("You lost.", 1, 1);
+		terminal.writeCenter("-- press [enter] to restart --", 21);
 		terminal.writeCenter("-- press [enter] to restart --", 22);
 	}
 

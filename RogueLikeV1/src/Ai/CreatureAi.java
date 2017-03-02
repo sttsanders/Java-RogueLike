@@ -27,7 +27,18 @@ public class CreatureAi {
 	public void wanderAround(){
 	    int mx = (int)(Math.random() * 3) - 1;
 	    int my = (int)(Math.random() * 3) - 1;
-	    creature.moveBy(mx, my, 0);
+	    
+	    Creature other = creature.returnCreature(creature.x + mx, creature.y + my, creature.z);
+	    
+	    //if colliding monster = same type
+	    if (other != null && other.getName() == creature.getName())
+	    {
+	        return;
+	    }
+	    else
+	    {
+	        creature.moveBy(mx, my, 0);
+	    }
 	}
 	
 	public void onNotify(String format) {

@@ -67,6 +67,10 @@ private World world;
 		return this.color;
 	}
 	
+	public Creature returnCreature(int wx, int wy, int wz) {
+	    return world.returnCreature(wx, wy, wz);
+	}
+	
 	/**
 	 * method for attacking the opponent. Calculates damage (from Dice method) and allows for monster status
 	 * @param opponent
@@ -177,7 +181,8 @@ private World world;
 	 * @param my
 	 */
 	public void moveBy(int mx, int my, int mz){
-		if (mx==0 && my==0 && mz==0) {
+		if (mx==0 && my==0 && mz==0) 
+		{
 			return;
 		}
 		Tile tile = world.returnTile(x+mx, y+my, z+mz);
@@ -192,7 +197,6 @@ private World world;
 		else
 		{
 			attack(other);
-			counterAttack(this);
 		}
 
 	}

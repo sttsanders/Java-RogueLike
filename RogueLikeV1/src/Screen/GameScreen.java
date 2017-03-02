@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Creatures.Creature;
-import Creatures.LoseScreen;
 import Resources.CreatureFactory;
 import Resources.ItemFactory;
 import Resources.World;
