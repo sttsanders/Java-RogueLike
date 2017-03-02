@@ -108,29 +108,29 @@ public class CreatureFactory {
 	 * Creates creatures for world seeding
 	 * @param cF
 	 */
-	public void createCreatures(CreatureFactory cF) {
+	public void createCreatures() {
 		// TODO Auto-generated method stub
 		for (int z = 0; z < world.getDepth(); z++)
 		{
 //			for (int i = 0; i < 1; i++){
-//		        cF.newGhoul(z);
+//		        newGhoul(z);
 //		    }
 //		
 		    for (int i = 0; i < 15; i++){
-		        cF.newQuillBoar(z);
+		        newQuillBoar(z);
 		    }
 		    
 //		    for (int i = 0; i < 0; i++){
-//		        cF.newCopyCat(z);
+//		        newCopyCat(z);
 //		    }
 		    
 		    for (int i = 0; i < 15; i++){
 		    	System.out.println("Generation z = " + z);
-		        cF.newKobold(z);
+		        newKobold(z);
 		    }
 //		    
 		    for (int i = 0; i < 4; i++){
-		        cF.newBeeNest(z);
+		        newBeeNest(z);
 		    }
 		}
 	}

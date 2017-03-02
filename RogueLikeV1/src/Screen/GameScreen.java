@@ -7,6 +7,7 @@ import java.util.List;
 import Creatures.Creature;
 import Creatures.LoseScreen;
 import Resources.CreatureFactory;
+import Resources.ItemFactory;
 import Resources.World;
 import Resources.WorldBuilder;
 import asciiPanel.AsciiPanel;
@@ -25,7 +26,10 @@ public class GameScreen implements Screen {
 		createWorld();
 		
 		CreatureFactory cF = new CreatureFactory(world);
-		cF.createCreatures(cF);
+		cF.createCreatures();
+		ItemFactory iF = new ItemFactory(world);
+		iF.createItems();
+		
 		createPlayer(cF);
 		
 	}

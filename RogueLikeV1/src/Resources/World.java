@@ -8,6 +8,7 @@ import Creatures.Creature;
 
 public class World {
 	private Tile[][][] tiles;
+	private Item[][][] items;
 	private int width;
 	private int height;
 	private int depth;
@@ -47,7 +48,7 @@ public class World {
 		this.width = tiles.length;
 		this.height = tiles[0].length;
 		this.depth = tiles[0][0].length;
-		
+		this.items = new Item[width][height][depth];
 		creatures = new ArrayList<Creature>();
 		
 	}
@@ -69,14 +70,26 @@ public class World {
 	}
 
 	
-	public char returnGlyph(int x, int y, int z)
-	{
-		return returnTile(x,y,z).getGlyph();
+	public char returnGlyph(int x, int y, int z){
+	    Creature creature = returnCreature(x, y, z);
+	    if (creature != null)
+	        return creature.getGlyph();
+	    
+	    if (returnItem(x,y,z) != null)
+	        return returnItem(x,y,z).getGlyph();
+	    
+	    return returnTile(x, y, z).getGlyph();
 	}
 	
-	public Color returnColor(int x, int y, int z)
-	{
-		return returnTile(x,y,z).getColor();
+	public Color returnColor(int x, int y, int z){
+	    Creature creature = returnCreature(x, y, z);
+	    if (creature != null)
+	        return creature.getColor();
+	    
+	    if (returnItem(x,y,z) != null)
+	        return returnItem(x,y,z).getColor();
+	    
+	    return returnTile(x, y, z).getColor();
 	}
 	
 	public void dig(int x, int y,int z) {
@@ -106,6 +119,24 @@ public class World {
 		creature.z = z;
 		creatures.add(creature);
 	}
+
+	public void addAtEmptyLocation(Item item, int depth) {
+    int x;
+    int y;
+    
+    do {
+        x = (int)(Math.random() * width);
+        y = (int)(Math.random() * height);
+    }
+    while (!returnTile(x,y,depth).isGround() || returnItem(x,y,depth) != null);
+    
+    items[x][y][depth] = item;
+	}
+	
+	public Item returnItem(int x, int y, int z){
+	    return items[x][y][z];
+	}
+
 
 	
 	
