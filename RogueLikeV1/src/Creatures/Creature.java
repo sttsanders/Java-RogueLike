@@ -6,13 +6,14 @@ import Ai.CreatureAi;
 import Resources.Dice;
 import Resources.Tile;
 import Resources.World;
+import Screen.GameScreen;
 import asciiPanel.AsciiPanel;
 import java.awt.Container;
 import java.io.IOException;
 
 public class Creature {
 private World world;
-	
+
 	public int x;
 	public int y;
 	public int z;
@@ -179,29 +180,19 @@ private World world;
 		if (mx==0 && my==0 && mz==0) {
 			return;
 		}
-		System.out.println("mz moveBy = " + mz);
-		System.out.println("z moveBy = " + z);
-		System.out.println("----------------");
 		Tile tile = world.returnTile(x+mx, y+my, z+mz);
 		
 		Creature other = world.returnCreature(x+mx, y+my, z+mz);
 		
-		for(Creature c : world.creatures)
-		{
-			System.out.print(c.getName() + ".. " + c.z + " | ");
-		}
 		
 		if (other == null)
 		{
-			for(Creature c : world.creatures)
-			{
-				System.out.println(c.getName());
-			}
 			ai.onEnter(x+mx, y+my, z+mz, tile);
 		}
 		else
 		{
 			attack(other);
+			counterAttack(this);
 		}
 
 	}

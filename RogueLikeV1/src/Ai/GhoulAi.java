@@ -9,4 +9,8 @@ public class GhoulAi extends CreatureAi {
 		super(creature);
 	}
 	
+	public void onUpdate(){
+        wanderAround();
+    }
+	
 }

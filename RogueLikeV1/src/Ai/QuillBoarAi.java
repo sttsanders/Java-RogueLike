@@ -8,5 +8,9 @@ public class QuillBoarAi extends CreatureAi {
 		super(creature);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public void onUpdate(){
+        wanderAround();
+    }
 
 }

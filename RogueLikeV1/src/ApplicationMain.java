@@ -3,6 +3,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 
+import Screen.MenuScreen;
 import Screen.Screen;
 import Screen.StartScreen;
 import asciiPanel.AsciiPanel;
@@ -33,6 +34,12 @@ public class ApplicationMain extends JFrame implements KeyListener {
         screen = screen.respondToUserInput(e);
         repaint();
     }
+    
+    public void deathScreen()
+    {
+    	screen = new MenuScreen();
+    }
+    
 
     public void keyReleased(KeyEvent e) { }
 

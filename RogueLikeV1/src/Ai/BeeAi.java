@@ -10,5 +10,10 @@ public class BeeAi extends CreatureAi{
 		super(creature);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public void onUpdate(){
+        wanderAround();
+        wanderAround();
+    }
 
 }

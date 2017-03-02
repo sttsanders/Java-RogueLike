@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Creatures.Creature;
+import Creatures.LoseScreen;
 import Resources.CreatureFactory;
 import Resources.World;
 import Resources.WorldBuilder;
@@ -122,6 +123,7 @@ public class GameScreen implements Screen {
 //			}
 //		}
 //	}
+	
 	private void displayTiles(AsciiPanel terminal, int left, int top) {
 		for (int x = 0; x < screenWidth; x++){
 			for (int y = 0; y < screenHeight; y++){
@@ -137,9 +139,6 @@ public class GameScreen implements Screen {
 		}
 	}
 
-	
-
-	
 	
 	
 	@Override
@@ -166,6 +165,11 @@ public class GameScreen implements Screen {
 		case '>': player.moveBy( 0, 0, 1); break;
 		}
 		world.update();
+		
+		if (player.getHealth() < 1)
+			return new LoseScreen();
+
+
 		return this;
 	}
 }

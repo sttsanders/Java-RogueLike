@@ -116,22 +116,22 @@ public class CreatureFactory {
 //		        cF.newGhoul(z);
 //		    }
 //		
-//		    for (int i = 0; i < 1; i++){
-//		        cF.newQuillBoar(z);
-//		    }
+		    for (int i = 0; i < 15; i++){
+		        cF.newQuillBoar(z);
+		    }
 		    
 //		    for (int i = 0; i < 0; i++){
 //		        cF.newCopyCat(z);
 //		    }
 		    
-		    for (int i = 0; i < 1; i++){
+		    for (int i = 0; i < 15; i++){
 		    	System.out.println("Generation z = " + z);
 		        cF.newKobold(z);
 		    }
 //		    
-//		    for (int i = 0; i < 1; i++){
-//		        cF.newBeeNest(z);
-//		    }
+		    for (int i = 0; i < 4; i++){
+		        cF.newBeeNest(z);
+		    }
 		}
 	}
 

@@ -8,5 +8,10 @@ public class KoboldAi extends CreatureAi {
 		super(creature);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public void onUpdate(){
+		wanderAround();
+        wanderAround();
+    }
 
 }

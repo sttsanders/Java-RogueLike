@@ -14,7 +14,10 @@ public class CopyCatAi extends CreatureAi {
 	
 	public void onUpdate(){
         if (cloneCounter < 5 && Math.random() < 0.02)
+        {
         	multiply();
+        }
+        wanderAround();
     }
  
     private void multiply(){
@@ -35,4 +38,5 @@ public class CopyCatAi extends CreatureAi {
         	return;
         }
     }
+    
 }
