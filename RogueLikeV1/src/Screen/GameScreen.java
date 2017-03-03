@@ -172,15 +172,6 @@ public class GameScreen implements Screen {
 		world.update();
 		
 		
-//		for(Item t : player.getInventory().getItems())
-//		{
-//			System.out.println("------begin------");
-//			if(t != null)
-//			{
-//				System.out.println(t.getName());
-//			}
-//		}
-		
 		if (player.getHealth() < 1)
 			return new LoseScreen();
 
