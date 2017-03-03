@@ -4,6 +4,8 @@ import java.awt.Color;
 
 import Ai.CreatureAi;
 import Resources.Dice;
+import Resources.Inventory;
+import Resources.Item;
 import Resources.Tile;
 import Resources.World;
 import Screen.GameScreen;
@@ -21,6 +23,7 @@ private World world;
 	private char glyph;
 	private Color color;
 	private CreatureAi ai;
+	private Inventory inventory;
 	
 	private String name;
 	private int maxHealth;
@@ -29,32 +32,37 @@ private World world;
 	private int defenseValue;
 	private Dice dice = new Dice();
 	
+	public Inventory getInventory()
+	{
+		return this.inventory;
+	}
+	
     public int getMaxHealth() 
     { 
-    	return maxHealth; 
+    	return this.maxHealth; 
     }
     
     public String getName()
     {
-    	return name;
+    	return this.name;
     }
 
     
     public int getHealth() 
     { 
-    	return currentHealth; 
+    	return this.currentHealth; 
     }
 
     
     public int getAttackValue() 
     { 
-    	return attackValue; 
+    	return this.attackValue; 
     }
 
     
     public int getDefenseValue() 
     { 
-    	return defenseValue; 
+    	return this.defenseValue; 
     }
     
 	public char getGlyph()
@@ -135,7 +143,7 @@ private World world;
 	 */
     public void modifyEnemyHp(int amount) {
         currentHealth = currentHealth - amount;
-        notify(this.getName() + " took " + amount + " damage from the counter attack!");
+        notify(this.getName() + " took " + amount + " damage from the attack!");
         //ded
         if (currentHealth < 1)
         {
@@ -172,6 +180,7 @@ private World world;
 	    this.attackValue = attack;
 	    this.defenseValue = defense;
 	    this.name = name;
+	    this.inventory = new Inventory(30);
 	}
 	
 
@@ -241,6 +250,24 @@ private World world;
 	public boolean canEnter(int wx, int wy, int wz) {
 		return world.returnTile(wx, wy, wz).isGround() && world.returnCreature(wx, wy, wz) == null;
 	}
+	
+	public void pickup(){
+        Item item = world.returnItem(x, y, z);
+    
+        if (inventory.isFull() || item == null){
+
+        } else {
+            world.remove(x, y, z);
+            inventory.addToInventory(item);
+        }
+    }
+	
+	public void drop(Item item){
+        inventory.removeFromInventory(item);
+        world.addAtEmptySpace(item, x, y, z);
+    }
+	
+	
 
 
 }

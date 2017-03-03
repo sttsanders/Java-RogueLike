@@ -1,7 +1,10 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.JFrame;
+
 
 import Screen.MenuScreen;
 import Screen.Screen;
@@ -13,6 +16,7 @@ public class ApplicationMain extends JFrame implements KeyListener {
 
     private AsciiPanel terminal;
     private Screen screen;
+    private static Random rnd = new Random();
     
     public ApplicationMain(){
         super();
@@ -49,6 +53,10 @@ public class ApplicationMain extends JFrame implements KeyListener {
     	ApplicationMain app = new ApplicationMain();
         app.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         app.setVisible(true);
+        
+        
     }
+    
+    
     
 }

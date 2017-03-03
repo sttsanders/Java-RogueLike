@@ -6,6 +6,7 @@ import java.util.List;
 
 import Creatures.Creature;
 import Resources.CreatureFactory;
+import Resources.Item;
 import Resources.ItemFactory;
 import Resources.World;
 import Resources.WorldBuilder;
@@ -164,10 +165,21 @@ public class GameScreen implements Screen {
 		}
 		
 		switch (key.getKeyChar()){
-		case '<': player.moveBy( 0, 0, -1); break;
-		case '>': player.moveBy( 0, 0, 1); break;
-		}
+        case 'g': player.pickup(); break;
+        case '<': player.moveBy( 0, 0, -1); break;
+        case '>': player.moveBy( 0, 0, 1); break;
+        }
 		world.update();
+		
+		
+//		for(Item t : player.getInventory().getItems())
+//		{
+//			System.out.println("------begin------");
+//			if(t != null)
+//			{
+//				System.out.println(t.getName());
+//			}
+//		}
 		
 		if (player.getHealth() < 1)
 			return new LoseScreen();

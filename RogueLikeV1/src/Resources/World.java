@@ -99,6 +99,40 @@ public class World {
 		}
 	}
 	
+	public void remove(int x, int y, int z) {
+	    items[x][y][z] = null;
+	}
+	
+	public void addAtEmptySpace(Item item, int x, int y, int z){
+	    if (item == null)
+	        return;
+	    
+	    List<Coordinate> points = new ArrayList<Coordinate>();
+	    List<Coordinate> checked = new ArrayList<Coordinate>();
+	    
+	    points.add(new Coordinate(x, y, z));
+	    
+	    while (!points.isEmpty()){
+	    	Coordinate p = points.remove(0);
+	        checked.add(p);
+	        
+	        if (!returnTile(p.x, p.y, p.z).isGround())
+	            continue;
+	         
+	        if (items[p.x][p.y][p.z] == null){
+	            items[p.x][p.y][p.z] = item;
+	            Creature c = this.returnCreature(p.x, p.y, p.z);
+	            if (c != null)
+	                c.notify("A %s lands between your feet.", item.getName());
+	            return;
+	        } else {
+	            List<Coordinate> neighbors = p.whichEightNeighbors();
+	            neighbors.removeAll(checked);
+	            points.addAll(neighbors);
+	        }
+	    }
+	}
+	
 	/**
 	 * adds creature to random location on the grid.
 	 * @param creature
