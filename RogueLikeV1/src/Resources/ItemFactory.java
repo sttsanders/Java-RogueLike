@@ -80,6 +80,12 @@ public class ItemFactory {
         return ironHelmet;
     }
 	
+	public Item newRingOfPower(int depth){
+        Item ringOfPower = new Item('o', AsciiPanel.green, "Ring of Ultimate Power", ItemType.VICTORY, 20, 20);
+        world.addAtEmptyLocation(ringOfPower, depth);
+        return ringOfPower;
+    }
+	
 	
 	
 }
