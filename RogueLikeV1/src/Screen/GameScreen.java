@@ -8,6 +8,7 @@ import Creatures.Creature;
 import Resources.CreatureFactory;
 import Resources.Item;
 import Resources.ItemFactory;
+import Resources.Tile;
 import Resources.World;
 import Resources.WorldBuilder;
 import asciiPanel.AsciiPanel;
@@ -18,6 +19,7 @@ public class GameScreen implements Screen {
 	private int screenWidth;
 	private int screenHeight;
 	private List<String> messages;
+	private Screen subscreen;
 	
 	public GameScreen(){
 		screenWidth = 100;
@@ -101,32 +103,12 @@ public class GameScreen implements Screen {
 
 		terminal.write(statistics, 100, 2, AsciiPanel.white);
 	}
+	
 	private int calculatePercentage(int cH, int mH)
 	{
 		double result =  ((double)cH / (double)mH) * 100;
 		return (int)result;
 	}
-	
-//	private void displayTiles(AsciiPanel terminal, int left, int top) {
-//
-//		for(int x = 0; x < screenWidth ; x++) 
-//		{
-//			for(int y = 0; y < screenHeight; y++) 
-//			{
-//				int wx = x + left;
-//				int wy = y + top;
-//				terminal.write(world.returnGlyph(wx, wy, player.z), x, y, world.returnColor(wx, wy, player.z));
-//			}
-//		}
-//
-//		for(Creature c : world.creatures) 
-//		{
-//			if((c.x >= left && c.x < left + screenWidth) && (c.y >= top && c.y < top + screenHeight)) 
-//			{
-//				terminal.write(c.getGlyph(), c.x - left, c.y - top, c.getColor());
-//			}
-//		}
-//	}
 	
 	private void displayTiles(AsciiPanel terminal, int left, int top) {
 		for (int x = 0; x < screenWidth; x++){
@@ -143,40 +125,59 @@ public class GameScreen implements Screen {
 		}
 	}
 
-	
+	private boolean userIsTryingToExit(){
+	    return player.z == 0 && world.returnTile(player.x, player.y, player.z) == Tile.STAIRS_UP;
+	}
+
+	private Screen userExits(){
+	    for (Item item : player.getInventory().getItems())
+	    {
+	        if (item != null && item.getName().equals("ring"))
+	        {
+	            return new WinScreen();
+	        }
+	    }
+	    return new LoseScreen();
+	}
 	
 	@Override
 	public Screen respondToUserInput(KeyEvent key) {
-		switch (key.getKeyCode()){
-		case KeyEvent.VK_ESCAPE: return new MenuScreen();
-		case KeyEvent.VK_LEFT:
-		case KeyEvent.VK_A: player.moveBy(-1, 0, 0); break;
-		case KeyEvent.VK_RIGHT:
-		case KeyEvent.VK_D: player.moveBy( 1, 0, 0); break;
-		case KeyEvent.VK_UP:
-		case KeyEvent.VK_W: player.moveBy( 0,-1, 0); break;
-		case KeyEvent.VK_DOWN:
-		case KeyEvent.VK_S: player.moveBy( 0, 1, 0); break;
-		case KeyEvent.VK_Y: player.moveBy(-1,-1, 0); break;
-		case KeyEvent.VK_U: player.moveBy( 1,-1, 0); break;
-		case KeyEvent.VK_B: player.moveBy(-1, 1, 0); break;
-		case KeyEvent.VK_N: player.moveBy( 1, 1, 0); break;
-		case KeyEvent.VK_SPACE:  break;
-		}
-		
-		switch (key.getKeyChar()){
-        case 'g': player.pickup(); break;
-        case '<': player.moveBy( 0, 0, -1); break;
-        case '>': player.moveBy( 0, 0, 1); break;
-        }
-		world.update();
-		
-		
-		if (player.getHealth() < 1)
-			return new LoseScreen();
+		if (subscreen != null) {
+	         subscreen = subscreen.respondToUserInput(key);
+	     } else {
+	         switch (key.getKeyCode())
+	         {
+	         case KeyEvent.VK_E : return new LoseScreen(); 
+	         case KeyEvent.VK_LEFT:
+	         case KeyEvent.VK_H: player.moveBy(-1, 0, 0); break;
+	         case KeyEvent.VK_RIGHT:
+	         case KeyEvent.VK_L: player.moveBy( 1, 0, 0); break;
+	         case KeyEvent.VK_UP:
+	         case KeyEvent.VK_K: player.moveBy( 0,-1, 0); break;
+	         case KeyEvent.VK_DOWN:
+	         case KeyEvent.VK_J: player.moveBy( 0, 1, 0); break;
+//	         case KeyEvent.VK_Y: player.moveBy(-1,-1, 0); break;
+//	         case KeyEvent.VK_U: player.moveBy( 1,-1, 0); break;
+//	         case KeyEvent.VK_B: player.moveBy(-1, 1, 0); break;
+//	         case KeyEvent.VK_N: player.moveBy( 1, 1, 0); break;
+	         }
+	        
+	         switch (key.getKeyChar()){
+	         case 'g':
+	         case ',': player.pickup(); break;
+	         case '<': player.moveBy( 0, 0, -1); break;
+	         case '>': player.moveBy( 0, 0, 1); break;
+	         }
+	     }
+	    
+	     if (subscreen == null)
+	         world.update();
+	    
+	     if (player.getHealth() < 1)
+	         return new LoseScreen();
+	    
+	     return this;
 
-
-		return this;
-	}
+	 }
 }
 

@@ -6,6 +6,7 @@ import Ai.CreatureAi;
 import Resources.Dice;
 import Resources.Inventory;
 import Resources.Item;
+import Resources.ItemType;
 import Resources.Tile;
 import Resources.World;
 import Screen.GameScreen;
@@ -30,7 +31,33 @@ private World world;
 	private int currentHealth;
 	private int attackValue;
 	private int defenseValue;
+	
+	private Item equippedWeapon;
+	private Item equippedArmor;
+	private Item equippedHelmet;
+	
 	private Dice dice = new Dice();
+	
+	
+	public Item getEquippedWeapon()
+	{
+		return this.equippedWeapon;
+	}
+	
+	public Item getEquippedArmor()
+	{
+		return this.equippedArmor;
+	}
+	
+	public Item getEquippedHelmet()
+	{
+		return this.equippedHelmet;
+	}
+	
+//	public void equip(Item item){
+//	  			weapon = item;
+//	      }
+//	  }
 	
 	public Inventory getInventory()
 	{
@@ -47,19 +74,16 @@ private World world;
     	return this.name;
     }
 
-    
     public int getHealth() 
     { 
     	return this.currentHealth; 
     }
 
-    
     public int getAttackValue() 
     { 
     	return this.attackValue; 
     }
 
-    
     public int getDefenseValue() 
     { 
     	return this.defenseValue; 
@@ -75,16 +99,70 @@ private World world;
 		return this.color;
 	}
 	
-	public Creature returnCreature(int wx, int wy, int wz) {
+	public Creature returnCreature(int wx, int wy, int wz) 
+	{
 	    return world.returnCreature(wx, wy, wz);
 	}
 	
+	public void unEquip(Item item)
+	{
+	      if (item == null)
+	      {
+	    	  return;
+	      }
+	  
+	      if (item.getType() == ItemType.ARMOR){
+	          this.equippedArmor = null;
+	      } 
+	      if (item.getType() == ItemType.WEAPON){
+	    	  this.equippedWeapon = null;
+	      } 
+	      if (item.getType() == ItemType.HELMET){
+	    	  this.equippedHelmet = null;
+	      } 
+	  }
+	public void equip(Item item)
+	{
+			if (item == null)
+			{
+				return;
+			}
+			if (item.getType() == ItemType.ARMOR){
+				this.equippedArmor = item;
+			} 
+			if (item.getType() == ItemType.WEAPON){
+				this.equippedWeapon = item;
+			} 
+			if (item.getType() == ItemType.HELMET){
+				this.equippedHelmet = item;
+			} 
+		
+
+	  }
+
+	
+	
 	/**
-	 * method for attacking the opponent. Calculates damage (from Dice method) and allows for monster status
+	 * method for attacking the opponent. Calculates damage (from Dice method) and damage(reduction) from items and allows for monster status
 	 * @param opponent
 	 */
 	public void attack(Creature opponent){
-        int damageDone = (dice.rollDice(1, 6) + getAttackValue() ) - opponent.getDefenseValue();
+		int opponentDefense = opponent.getDefenseValue();
+		if(opponent.getEquippedArmor() != null)
+		{
+			opponentDefense += opponent.getEquippedArmor().getDefenseBonus();
+		}
+		
+		int equipmentAttack = getAttackValue();
+		if(getEquippedWeapon() != null)
+		{
+			equipmentAttack += getEquippedWeapon().getAttackBonus();
+			
+		}
+        int damageDone = (dice.rollDice(1, 6) + equipmentAttack ) 
+        		- opponentDefense;
+        
+        
         if(damageDone < 0)
         {
         	damageDone = 0;
@@ -230,7 +308,6 @@ private World world;
 	    //heal();
 	}
 
-
 	/**
 	 * allows player to dig through walls for debug purposes. Might become an item. 
 	 * @param wx
@@ -239,7 +316,6 @@ private World world;
 	public void dig(int wx, int wy, int wz) {
 		world.dig(wx, wy, wz);
 	}
-
 	
 	/**
 	 * checks if tile to enter is actually valid and doesn't contain a monster.

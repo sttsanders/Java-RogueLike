@@ -27,8 +27,22 @@ public class CreatureFactory {
 	 */
 	public Creature newPlayer(List<String> messages){
 		Creature player = new Creature(world, '@',"You", AsciiPanel.brightWhite, 150, 10, 10);
+		
+		Item ironArmor = new Item('i', AsciiPanel.green, "iron armor", ItemType.ARMOR, 0, 4);
+		Item ironHelmet = new Item('i', AsciiPanel.green, "iron helmet", ItemType.HELMET, 0, 3);
+		Item sword = new Item('i', AsciiPanel.green, "sword",ItemType.WEAPON, 4, 0);
+		
+		player.equip(ironArmor);
+		player.equip(ironHelmet);
+		player.equip(sword);
+		
 		world.addAtEmptyLocation(player, 0);
 		new PlayerAi(player, messages);
+		System.out.println("--------player--------");
+		System.out.println("Weapon: " + player.getEquippedWeapon().getName());
+		System.out.println("helmet: " + player.getEquippedHelmet().getName());
+		System.out.println("Armor: " + player.getEquippedArmor().getName());
+		System.out.println("----------------------");
 		return player;
 	}
 	
@@ -125,7 +139,6 @@ public class CreatureFactory {
 //		    }
 		    
 		    for (int i = 0; i < 15; i++){
-		    	System.out.println("Generation z = " + z);
 		        newKobold(z);
 		    }
 //		    
@@ -141,7 +154,7 @@ public class CreatureFactory {
 	 */
 	public Creature newBee(int depth) {
 		// TODO Auto-generated method stub
-		Creature bee = new Creature(world, 'b',"Bee", AsciiPanel.cyan, 5, 1, 0);
+		Creature bee = new Creature(world, 'b',"Bee", AsciiPanel.cyan, 5, 20, 0);
 		world.addAtEmptyLocation(bee, depth);
 		new BeeAi(bee);
 		return bee;

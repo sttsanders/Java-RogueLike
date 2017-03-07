@@ -12,17 +12,18 @@ public enum Tile {
     BOUNDS('x', AsciiPanel.brightBlack),
     STAIRS_DOWN('>', AsciiPanel.white),
     STAIRS_UP('<', AsciiPanel.white),
-    UNKNOWN_TILE(' ', AsciiPanel.white),
+    //UNKNOWN_TILE(' ', AsciiPanel.white),
 	PLAYER((char)22, AsciiPanel.blue);
 
     private char glyph;
+    private Color color;
+    
     public char getGlyph() 
     { 
     	return glyph; 
     
     }
-
-    private Color color;
+    
     public Color getColor() 
     { 
     	return color;

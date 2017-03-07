@@ -60,7 +60,6 @@ public class World {
 		}
 	}
 
-	
 	public Tile returnTile(int x, int y, int z)
 	{
 		if (x < 0 || x >= width || y < 0 || y >= height || z < 0 || z >= depth)
@@ -69,7 +68,6 @@ public class World {
 			return tiles[x][y][z];
 	}
 
-	
 	public char returnGlyph(int x, int y, int z){
 	    Creature creature = returnCreature(x, y, z);
 	    if (creature != null)
