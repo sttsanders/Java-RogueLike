@@ -6,6 +6,7 @@ import Ai.BeeAi;
 import Ai.BeeNestAi;
 import Ai.CopyCatAi;
 import Ai.CopyCatCloneAi;
+import Ai.DragonAi;
 import Ai.GhoulAi;
 import Ai.KoboldAi;
 import Ai.PlayerAi;
@@ -26,7 +27,7 @@ public class CreatureFactory {
 	 * @return
 	 */
 	public Creature newPlayer(List<String> messages){
-		Creature player = new Creature(world, '@',"You", AsciiPanel.brightWhite, 150, 10, 10);
+		Creature player = new Creature(world, (char)1,"You", AsciiPanel.brightWhite, 150, 0, 0);
 		
 //		Item ironArmor = new Item('i', AsciiPanel.green, "iron armor", ItemType.ARMOR, 0, 4);
 //		Item ironHelmet = new Item('i', AsciiPanel.green, "iron helmet", ItemType.HELMET, 0, 3);
@@ -67,6 +68,14 @@ public class CreatureFactory {
 		world.addAtEmptyLocation(copyCat, depth);
 		new CopyCatAi(copyCat, this);
 		return copyCat;
+	}
+	
+	public Creature newDragon(int depth)
+	{
+		Creature dragon = new Creature(world, 'D',"Dragon of Ultimate Awesomeness", AsciiPanel.brightRed, 300, 40, 10);
+		world.addAtEmptyLocation(dragon, depth);
+		new DragonAi(dragon);
+		return dragon;
 	}
 	
 	/**
@@ -144,7 +153,11 @@ public class CreatureFactory {
 		    for (int i = 0; i < 4; i++){
 		        newBeeNest(z);
 		    }
+		    
+		    
 		}
+		
+		newDragon(5);
 	}
 
 	/**

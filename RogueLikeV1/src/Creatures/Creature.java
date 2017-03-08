@@ -390,6 +390,7 @@ private World world;
             }
             if(item.getType() == ItemType.VICTORY)
             {
+            	notify(this.getName() + " found " + item.getName() + "! Now escape! (Stairs up on floor 1)");
             	inventory.addToInventory(item);
             }
             
