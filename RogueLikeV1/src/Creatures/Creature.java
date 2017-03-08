@@ -334,7 +334,66 @@ private World world;
 
         } else {
             world.remove(x, y, z);
-            inventory.addToInventory(item);
+            if(item.getType() == ItemType.ARMOR)
+            {
+            	if(this.getEquippedArmor() != null)
+            	{
+	                if(item.getDefenseBonus() > this.getEquippedArmor().getDefenseBonus())
+	                {
+	                	this.equip(item);
+	                }
+	                else
+	                {
+	                	inventory.addToInventory(item);
+	                }
+            	}
+            	else
+            	{
+            		this.equip(item);
+            	}
+            }
+            if(item.getType() == ItemType.HELMET)
+            {
+            	if(this.getEquippedHelmet() != null)
+            	{
+	                if(item.getDefenseBonus() > this.getEquippedHelmet().getDefenseBonus())
+	                {
+	                	this.equip(item);
+	                }
+	                else
+	                {
+	                	inventory.addToInventory(item);
+	                }
+            	}
+            	else
+            	{
+            		this.equip(item);
+            	}
+            }
+            if(item.getType() == ItemType.WEAPON)
+            {
+            	if(this.getEquippedWeapon() != null)
+            	{
+	                if(item.getAttackBonus() > this.getEquippedWeapon().getAttackBonus())
+	                {
+	                	this.equip(item);
+	                }
+	                else
+	                {
+	                	inventory.addToInventory(item);
+	                }
+            	}
+            	else
+            	{
+            		this.equip(item);
+            	}
+            }
+            if(item.getType() == ItemType.VICTORY)
+            {
+            	inventory.addToInventory(item);
+            }
+            
+
         }
     }
 	

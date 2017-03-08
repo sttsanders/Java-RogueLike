@@ -23,7 +23,6 @@ public class PlayerAi extends CreatureAi {
 		} 
 		else if (tile.isDiggable()) 
 		{
-			
 			creature.dig(x, y, z);
 		}
 	}

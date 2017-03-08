@@ -10,8 +10,8 @@ public enum Tile {
     WALL((char)'|', AsciiPanel.brown),
     WATER((char)254, AsciiPanel.blue),
     BOUNDS('x', AsciiPanel.brightBlack),
-    STAIRS_DOWN('>', AsciiPanel.white),
-    STAIRS_UP('<', AsciiPanel.white),
+    STAIRS_DOWN((char)10, AsciiPanel.white),
+    STAIRS_UP((char)8, AsciiPanel.white),
     //UNKNOWN_TILE(' ', AsciiPanel.white),
 	PLAYER((char)22, AsciiPanel.blue);
 

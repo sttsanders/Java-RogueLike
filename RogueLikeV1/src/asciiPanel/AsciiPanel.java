@@ -252,7 +252,7 @@ public class AsciiPanel extends JPanel {
      */
     public AsciiPanel() {
         //width, height
-    	this(120, 50);
+    	this(130, 50);
     }
 
     /**

@@ -1,5 +1,7 @@
 package Resources;
 
+import java.util.Random;
+
 import asciiPanel.AsciiPanel;
 
 public class ItemFactory {
@@ -35,7 +37,13 @@ public class ItemFactory {
 	        for (int i = 0; i < 2; i++){
 	        	newSteelPlate(z);
 	        }
+	       
 	    }
+		
+		//adds victory condition to random floor. Find it to win. 
+		int randomLevel = new Random().nextInt(world.getDepth());
+		
+		newEpicSpoon(randomLevel);
 	}
 	
 	public Item newSpear(int depth){
@@ -80,10 +88,10 @@ public class ItemFactory {
         return ironHelmet;
     }
 	
-	public Item newRingOfPower(int depth){
-        Item ringOfPower = new Item('o', AsciiPanel.green, "Ring of Ultimate Power", ItemType.VICTORY, 20, 20);
-        world.addAtEmptyLocation(ringOfPower, depth);
-        return ringOfPower;
+	public Item newEpicSpoon(int depth){
+        Item newEpicSpoon = new Item('S', AsciiPanel.red, "The magic Spoon", ItemType.VICTORY, 20, 20);
+        world.addAtEmptyLocation(newEpicSpoon, depth);
+        return newEpicSpoon;
     }
 	
 	

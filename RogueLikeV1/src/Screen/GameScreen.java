@@ -8,6 +8,7 @@ import Creatures.Creature;
 import Resources.CreatureFactory;
 import Resources.Item;
 import Resources.ItemFactory;
+import Resources.ItemType;
 import Resources.Tile;
 import Resources.World;
 import Resources.WorldBuilder;
@@ -70,17 +71,37 @@ public class GameScreen implements Screen {
 		
 		terminal.write(player.getGlyph(), player.x - left, player.y - top, player.getColor());
 		
-		showHealth(terminal);
-		//showLevel(terminal);
+		showUI(terminal);
+		
 		displayMessages(terminal, messages);
 	}
 
-	private void showHealth(AsciiPanel terminal) {
+	private void showUI(AsciiPanel terminal)
+	{
+		showHealth(terminal);
+		showEquippedStuff(terminal);
+		showLevel(terminal);
+		showLegend(terminal);
+	}
+	private void showLegend(AsciiPanel terminal)
+	{
+		terminal.write(" - arrow keys to move ", 100, 10, AsciiPanel.white);
+		terminal.write(" - (g) to pickup items ", 100, 11, AsciiPanel.white);
+		terminal.write(" - (Shift)(<) to descend ", 100, 12, AsciiPanel.white);
+		terminal.write(" - (Shift)(>) to ascend ", 100, 13, AsciiPanel.white);
+		terminal.write(" - (e) to give up ", 100, 14, AsciiPanel.white);
+		
+		terminal.write(" Find the magic spoon ", 100, 17, AsciiPanel.white);
+		terminal.write(" and escape! ", 100, 18, AsciiPanel.white);
+	}
+	
+	private void showHealth(AsciiPanel terminal) 
+	{
 		int localHealth = player.getHealth();
 		int localMaxhealth = player.getMaxHealth();
 		int percentage = calculatePercentage(localHealth, localMaxhealth);
 		
-		String statistics = "Hitpoints: " + localHealth + "/" + localMaxhealth;
+		String statistics = " Hitpoints: " + localHealth + "/" + localMaxhealth;
 		
 	    if(percentage > 50)
 	    {
@@ -96,12 +117,52 @@ public class GameScreen implements Screen {
 	    }
 		
 	}
+	
+	private void showEquippedStuff(AsciiPanel terminal) 
+	{
+		
+		String equippedHelmet = "None";
+		String equippedArmor = "None";
+		String equippedWeapon = "None";
+	
+		int equippedHelmetBonus = 0;
+		int equippedArmorBonus = 0;
+		int equippedWeaponBonus = 0;
+		
+		if(player.getEquippedHelmet() != null)
+		{
+			equippedHelmet = player.getEquippedHelmet().getName();
+			equippedHelmetBonus = player.getEquippedHelmet().getDefenseBonus();
+		}
+		
+		if(player.getEquippedArmor() != null)
+		{
+			equippedArmor = player.getEquippedArmor().getName();
+			equippedArmorBonus = player.getEquippedArmor().getDefenseBonus();
+		}
+		
+		if(player.getEquippedWeapon() != null)
+		{
+			equippedWeapon = player.getEquippedWeapon().getName();
+			equippedWeaponBonus = player.getEquippedWeapon().getAttackBonus();
+		}
+		
+	    
+	    terminal.write(" Helmet: "   + equippedHelmet, 	100, 4, 	AsciiPanel.white);
+	    terminal.write("(+"  + equippedHelmetBonus + ")",	122, 4, 	AsciiPanel.yellow);
+	   	terminal.write(" Armor: " 	+ equippedArmor, 	100, 5, 	AsciiPanel.white);
+	   	terminal.write("(+" + equippedArmorBonus+ ")",	122, 5, 	AsciiPanel.yellow);
+	    terminal.write(" Weapon: " 	+ equippedWeapon, 	100, 6, 	AsciiPanel.white);
+	    terminal.write("(+" + equippedWeaponBonus+ ")",	122, 6, 	AsciiPanel.yellow);
+		
+	}
 
 	private void showLevel(AsciiPanel terminal)
 	{
-		String statistics = "CurrentFloor: " + world.getDepth();
+		String statistics = " Current Floor: " + world.getCurrentDepth();
 
-		terminal.write(statistics, 100, 2, AsciiPanel.white);
+		terminal.write(statistics, 100, 8, AsciiPanel.white);
+		terminal.write(" -------------------------", 100, 9, AsciiPanel.white);
 	}
 	
 	private int calculatePercentage(int cH, int mH)
@@ -125,19 +186,24 @@ public class GameScreen implements Screen {
 		}
 	}
 
-	private boolean userIsTryingToExit(){
+	private boolean userIsTryingToWin(){
 	    return player.z == 0 && world.returnTile(player.x, player.y, player.z) == Tile.STAIRS_UP;
 	}
 
 	private Screen userExits(){
+		for(Item item : player.getInventory().getItems())
+		{
+			System.out.println(item);
+		}
 	    for (Item item : player.getInventory().getItems())
 	    {
-	        if (item != null && item.getName().equals("ring"))
+	    	System.out.println(item.getType());
+	        if (item != null && item.getType() == ItemType.VICTORY)
 	        {
 	            return new WinScreen();
 	        }
 	    }
-	    return new LoseScreen();
+	    return this;
 	}
 	
 	@Override
@@ -147,6 +213,7 @@ public class GameScreen implements Screen {
 	     } else {
 	         switch (key.getKeyCode())
 	         {
+	         case KeyEvent.VK_ESCAPE : return new MenuScreen();
 	         case KeyEvent.VK_E : return new LoseScreen(); 
 	         case KeyEvent.VK_LEFT:
 	         case KeyEvent.VK_H: player.moveBy(-1, 0, 0); break;
@@ -165,7 +232,12 @@ public class GameScreen implements Screen {
 	         switch (key.getKeyChar()){
 	         case 'g':
 	         case ',': player.pickup(); break;
-	         case '<': player.moveBy( 0, 0, -1); break;
+	         case '<':
+	             if (userIsTryingToWin())
+	              return userExits();
+	             else
+	              player.moveBy( 0, 0, -1); 
+	             break;
 	         case '>': player.moveBy( 0, 0, 1); break;
 	         }
 	     }

@@ -1,5 +1,6 @@
 package Screen;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 
 import asciiPanel.AsciiPanel;
@@ -21,36 +22,36 @@ public class StartScreen implements Screen {
     {
     	int x = 44;
     	int y = 10;
+    	String msiColored = "MSI";
     	
-    	p.write("", 26, ++y);
-    	p.write("                             Welcome            ", 26, ++y);
-    	p.write("                               to            ", 26, ++y);
-    	p.write("                             CULTIST            ", 26, ++y);
-    	p.write("       _______________             ", x, ++y);
-    	p.write("      /               \\            ", x, ++y);
-    	p.write("     /                 \\           ", x, ++y);
-    	p.write("    /                   \\          ", x, ++y);
-    	p.write("    |    ##       ##    |          ", x, ++y);
-    	p.write("    |   ####     ####   |          ", x, ++y);
-    	p.write("    |    ##       ##    |          ", x, ++y);
-    	p.write("    |         #         |", x, ++y);
-    	p.write("    \'__      ###     __/'           ", x, ++y);
-    	p.write("      |\\     ###     /|            ", x, ++y);
-    	p.write("      | |           | |            ", x, ++y);
-    	p.write("      | I I I I I I I |            ", x, ++y);
-    	p.write("      |  I I I I I I  |            ", x, ++y);
-    	p.write("      \\               /             ", x, ++y);
-    	p.write("        \\           /              ", x, ++y);
-    	p.write("          \\_______/                ", x, ++y);
-    	p.write("", 29, ++y);
-    	p.write("", 29, ++y);
-    	p.write("", 29, ++y);
-    	p.write("", 29, ++y);
-    	p.write("", 29, ++y);
-    	p.write("", 29, ++y);
-    	p.write("                   Press Enter to Start", 29, ++y);
-    	
+    	p.writeCenter("Welcome", ++y);
+    	p.writeCenter("to", ++y);
+    	p.writeCenter("Adventure Simulator", ++y);
+    	p.writeCenter("", ++y);
 
+    	p.writeCenter("\\                  /",  ++y, AsciiPanel.red);
+    	p.writeCenter("_________))                ((__________",  ++y, AsciiPanel.red);
+    	p.writeCenter("/.-------./\\\\    \\    /    //\\.--------.\\",  ++y, AsciiPanel.red);
+    	p.writeCenter("//#######//##\\   ))  ((   //##\\########\\",  ++y, AsciiPanel.red);
+    	p.writeCenter("//#######//###((  ((    ))  ))###\\########\\",  ++y, AsciiPanel.red);
+    	p.writeCenter("((#######((#####\\  \\  //  //#####))########))",  ++y, AsciiPanel.red);
+    	p.writeCenter("\\##' `###\\##MSI#\\\\  \\)(/  //######/####' `##/",  ++y, AsciiPanel.red);
+    	p.writeCenter(")'    ``#)'  `##\\`->oo<-'/##'  `(#''     `(",  ++y, AsciiPanel.red);
+    	p.writeCenter("(       ``\\`..'/''       )",  ++y, AsciiPanel.red);
+    	p.writeCenter("\\" + "(",  ++y, AsciiPanel.red);
+    	p.writeCenter("`- )",  ++y, AsciiPanel.red);
+    	p.writeCenter("/ /",  ++y, AsciiPanel.red);
+    	p.writeCenter("( /\\",  ++y, AsciiPanel.red);
+    	p.writeCenter("/\\| \\",  ++y, AsciiPanel.red);
+    	p.writeCenter("(  \\",  ++y, AsciiPanel.red);
+    	p.writeCenter(")",  ++y, AsciiPanel.red);
+    	p.writeCenter("/",  ++y, AsciiPanel.red);
+    	p.writeCenter("(",  ++y, AsciiPanel.red);
+    	p.writeCenter("`",  ++y, AsciiPanel.red);
+    	p.writeCenter("",  ++y, AsciiPanel.red);
+    	p.writeCenter("",  ++y, AsciiPanel.red);
+    	p.writeCenter("Press Enter to Start",  ++y);
+    	p.write(msiColored, 54, 21, AsciiPanel.brightBlack);
 
     	
     }

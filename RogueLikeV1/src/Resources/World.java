@@ -12,6 +12,7 @@ public class World {
 	private int width;
 	private int height;
 	private int depth;
+	private int currentDepth;
 	public List<Creature> creatures;
 	
 	public int getDepth()
@@ -27,6 +28,11 @@ public class World {
 	public int getHeight()
 	{
 		return this.height;
+	}
+	
+	public int getCurrentDepth()
+	{
+		return currentDepth;
 	}
 	
 	public Creature returnCreature(int x, int y, int z){
@@ -63,9 +69,14 @@ public class World {
 	public Tile returnTile(int x, int y, int z)
 	{
 		if (x < 0 || x >= width || y < 0 || y >= height || z < 0 || z >= depth)
+		{
 			return Tile.BOUNDS;
+		}
 		else
+		{
+			currentDepth = z;
 			return tiles[x][y][z];
+		}
 	}
 
 	public char returnGlyph(int x, int y, int z){
