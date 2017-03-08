@@ -35,9 +35,14 @@ private World world;
 	private Item equippedWeapon;
 	private Item equippedArmor;
 	private Item equippedHelmet;
+	private Item equippedShield;
 	
 	private Dice dice = new Dice();
 	
+	public Item getEquippedShield()
+	{
+		return this.equippedShield;
+	}
 	
 	public Item getEquippedWeapon()
 	{
@@ -54,10 +59,6 @@ private World world;
 		return this.equippedHelmet;
 	}
 	
-//	public void equip(Item item){
-//	  			weapon = item;
-//	      }
-//	  }
 	
 	public Inventory getInventory()
 	{
@@ -120,6 +121,9 @@ private World world;
 	      if (item.getType() == ItemType.HELMET){
 	    	  this.equippedHelmet = null;
 	      } 
+	      if (item.getType() == ItemType.SHIELD){
+	    	  this.equippedShield = null;
+	      } 
 	  }
 	public void equip(Item item)
 	{
@@ -131,10 +135,16 @@ private World world;
 				this.equippedArmor = item;
 			} 
 			if (item.getType() == ItemType.WEAPON){
+				System.out.println("equipping weapon");
 				this.equippedWeapon = item;
 			} 
 			if (item.getType() == ItemType.HELMET){
+				System.out.println("equipping helmet");
 				this.equippedHelmet = item;
+			} 
+			if (item.getType() == ItemType.SHIELD){
+				System.out.println("equipping shield");
+				this.equippedShield = item;
 			} 
 		
 
@@ -151,6 +161,10 @@ private World world;
 		if(opponent.getEquippedArmor() != null)
 		{
 			opponentDefense += opponent.getEquippedArmor().getDefenseBonus();
+		}
+		if(opponent.getEquippedShield() != null)
+		{
+			opponentDefense += opponent.getEquippedShield().getDefenseBonus();
 		}
 		
 		int equipmentAttack = getAttackValue();
@@ -189,7 +203,7 @@ private World world;
         opponent.modifyEnemyHp(damageDone);
         
     }
-	
+
 	/**
 	 * method for calculating life (currentHealth divided by maxHealth)
 	 * @param cH
@@ -376,6 +390,7 @@ private World world;
             	{
 	                if(item.getAttackBonus() > this.getEquippedWeapon().getAttackBonus())
 	                {
+	                	System.out.println("equipped weapon");
 	                	this.equip(item);
 	                }
 	                else
@@ -385,6 +400,27 @@ private World world;
             	}
             	else
             	{
+            		System.out.println("equipped weapon, none present: " + item.getType());
+            		this.equip(item);
+            	}
+            }
+            if(item.getType() == ItemType.SHIELD)
+            {
+            	if(this.getEquippedShield() != null)
+            	{
+	                if(item.getDefenseBonus() > this.getEquippedShield().getDefenseBonus())
+	                {
+	                	System.out.println("equipped shield");
+	                	this.equip(item);
+	                }
+	                else
+	                {
+	                	inventory.addToInventory(item);
+	                }
+            	}
+            	else
+            	{
+            		System.out.println("equipped shield, none present: " + item.getType());
             		this.equip(item);
             	}
             }

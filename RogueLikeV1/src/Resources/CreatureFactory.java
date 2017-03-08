@@ -27,7 +27,7 @@ public class CreatureFactory {
 	 * @return
 	 */
 	public Creature newPlayer(List<String> messages){
-		Creature player = new Creature(world, (char)1,"You", AsciiPanel.brightWhite, 150, 0, 0);
+		Creature player = new Creature(world, (char)1,"You", AsciiPanel.brightWhite, 400, 0, 0);
 		
 //		Item ironArmor = new Item('i', AsciiPanel.green, "iron armor", ItemType.ARMOR, 0, 4);
 //		Item ironHelmet = new Item('i', AsciiPanel.green, "iron helmet", ItemType.HELMET, 0, 3);

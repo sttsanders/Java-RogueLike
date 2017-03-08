@@ -1,7 +1,10 @@
 package Resources;
 
+import java.awt.event.KeyEvent;
 import java.util.Random;
 
+import Screen.LoseScreen;
+import Screen.MenuScreen;
 import asciiPanel.AsciiPanel;
 
 public class ItemFactory {
@@ -14,28 +17,30 @@ public class ItemFactory {
 	public void createItems() {
 		// TODO Auto-generated method stub
 		for (int z = 0; z < world.getDepth(); z++){
-	        for (int i = 0; i < 2; i++){
-	            newSpear(z);
-	        }
-	        
-	        for (int i = 0; i < 2; i++){
-	            newSword(z);
-	        }
-	        
-	        for (int i = 0; i < 2; i++){
-	        	newLeatherArmor(z);
-	        }
-	        
-	        for (int i = 0; i < 2; i++){
-	        	newIronArmor(z);
-	        }
-	        
-	        for (int i = 0; i < 2; i++){
-	        	newIronHelmet(z);
-	        }
-	        
-	        for (int i = 0; i < 2; i++){
-	        	newSteelPlate(z);
+	        for(int i = 0; i <= 4; i++)
+	        {
+	        	int itemGen = new Random().nextInt(16) + 1;
+	        	
+	        	switch (itemGen)
+		        {
+			         case 1 	: newWoodenSword(z)		; break;
+			         case 2 	: newIronSword(z)		; break;
+			         case 3 	: newSteelSword(z)		; break;
+			         case 4 	: newDragonSword(z)		; break;
+			         case 5 	: newWoodenShield(z)	; break;
+			         case 6 	: newIronShield(z)		; break;
+			         case 7 	: newSteelShield(z)		; break;
+			         case 8 	: newDragonShield(z)	; break;
+			         case 9 	: newLeatherArmor(z)	; break;
+			         case 10 	: newIronArmor(z)		; break;
+			         case 11 	: newSteelArmor(z)		; break;
+			         case 12 	: newDragonArmor(z)		; break;
+			         case 13 	: newLeatherHelmet(z)	; break;
+			         case 14 	: newIronHelmet(z)		; break;
+			         case 15 	: newSteelHelmet(z)		; break;
+			         case 16 	: newDragonHelmet(z)	; break;
+			         
+		        }
 	        }
 	       
 	    }
@@ -46,48 +51,110 @@ public class ItemFactory {
 		newEpicSpoon(randomLevel);
 	}
 	
-	public Item newSpear(int depth){
-        Item spear = new Item('i', AsciiPanel.green, "spear",ItemType.WEAPON, 2, 0);
-        world.addAtEmptyLocation(spear, depth);
-        return spear;
-    }
-	
-	public Item newSword(int depth){
-        Item sword = new Item('i', AsciiPanel.green, "sword",ItemType.WEAPON, 4, 0);
+	//-----------------------------Weapons
+	public Item newWoodenSword(int depth){
+        Item sword = new Item('w', AsciiPanel.green, "wooden sword",ItemType.WEAPON, 1, 0);
         world.addAtEmptyLocation(sword, depth);
         return sword;
     }
 	
-	public Item newDagger(int depth){
-        Item dagger = new Item('i', AsciiPanel.green, "dagger", ItemType.WEAPON, 3, 0);
-        world.addAtEmptyLocation(dagger, depth);
-        return dagger;
+	public Item newIronSword(int depth){
+        Item sword = new Item('w', AsciiPanel.green, "iron sword",ItemType.WEAPON, 2, 0);
+        world.addAtEmptyLocation(sword, depth);
+        return sword;
     }
 	
+	public Item newSteelSword(int depth){
+        Item sword = new Item('w', AsciiPanel.green, "steel sword",ItemType.WEAPON, 4, 0);
+        world.addAtEmptyLocation(sword, depth);
+        return sword;
+    }
+	
+	public Item newDragonSword(int depth){
+        Item sword = new Item('w', AsciiPanel.green, "dragon sword",ItemType.WEAPON, 8, 0);
+        world.addAtEmptyLocation(sword, depth);
+        return sword;
+    }
+		
+	
+	//-----------------------------Shield
+	public Item newWoodenShield(int depth){
+        Item shield = new Item('s', AsciiPanel.green, "wooden shield",ItemType.SHIELD, 0,1);
+        world.addAtEmptyLocation(shield, depth);
+        return shield;
+    }
+	
+	public Item newIronShield(int depth){
+        Item shield = new Item('s', AsciiPanel.green, "iron shield",ItemType.SHIELD, 0,2);
+        world.addAtEmptyLocation(shield, depth);
+        return shield;
+    }
+	
+	public Item newSteelShield(int depth){
+        Item shield = new Item('s', AsciiPanel.green, "steel shield",ItemType.SHIELD, 0,4);
+        world.addAtEmptyLocation(shield, depth);
+        return shield;
+    }
+	
+	public Item newDragonShield(int depth){
+        Item shield = new Item('s', AsciiPanel.green, "dragon shield",ItemType.SHIELD, 0,8);
+        world.addAtEmptyLocation(shield, depth);
+        return shield;
+    }
+	
+	
+	//-----------------------------Armor
 	public Item newLeatherArmor(int depth){
-        Item leatherArmor = new Item('i', AsciiPanel.green, "leather armor", ItemType.ARMOR, 0, 2);
-        world.addAtEmptyLocation(leatherArmor, depth);
-        return leatherArmor;
+        Item armor = new Item('a', AsciiPanel.green, "leather armor",ItemType.ARMOR, 0,1);
+        world.addAtEmptyLocation(armor, depth);
+        return armor;
     }
 	
 	public Item newIronArmor(int depth){
-        Item ironArmor = new Item('i', AsciiPanel.green, "iron armor", ItemType.ARMOR, 0, 4);
-        world.addAtEmptyLocation(ironArmor, depth);
-        return ironArmor;
+        Item armor = new Item('a', AsciiPanel.green, "iron armor",ItemType.ARMOR, 0,2);
+        world.addAtEmptyLocation(armor, depth);
+        return armor;
     }
 	
-	public Item newSteelPlate(int depth){
-        Item steelPlate = new Item('i', AsciiPanel.green, "steel plate", ItemType.ARMOR, 0, 6);
-        world.addAtEmptyLocation(steelPlate, depth);
-        return steelPlate;
+	public Item newSteelArmor(int depth){
+        Item armor = new Item('a', AsciiPanel.green, "steel armor",ItemType.ARMOR, 0,4);
+        world.addAtEmptyLocation(armor, depth);
+        return armor;
     }
 	
-	public Item newIronHelmet(int depth){
-        Item ironHelmet = new Item('i', AsciiPanel.green, "iron helmet", ItemType.HELMET, 0, 3);
-        world.addAtEmptyLocation(ironHelmet, depth);
-        return ironHelmet;
+	public Item newDragonArmor(int depth){
+        Item armor = new Item('a', AsciiPanel.green, "dragon armor",ItemType.ARMOR, 0, 8);
+        world.addAtEmptyLocation(armor, depth);
+        return armor;
     }
+		
 	
+	//-----------------------------Helmet
+		public Item newLeatherHelmet(int depth){
+	        Item helmet = new Item('h', AsciiPanel.green, "leather helmet",ItemType.HELMET, 0,1);
+	        world.addAtEmptyLocation(helmet, depth);
+	        return helmet;
+	    }
+		
+		public Item newIronHelmet(int depth){
+	        Item helmet = new Item('h', AsciiPanel.green, "iron helmet",ItemType.HELMET, 0,2);
+	        world.addAtEmptyLocation(helmet, depth);
+	        return helmet;
+	    }
+		
+		public Item newSteelHelmet(int depth){
+	        Item helmet = new Item('h', AsciiPanel.green, "steel helmet",ItemType.HELMET, 0,4);
+	        world.addAtEmptyLocation(helmet, depth);
+	        return helmet;
+	    }
+		
+		public Item newDragonHelmet(int depth){
+	        Item helmet = new Item('h', AsciiPanel.green, "dragon helmet",ItemType.HELMET, 0, 8);
+	        world.addAtEmptyLocation(helmet, depth);
+	        return helmet;
+	    }
+	
+	//------------------------------Special
 	public Item newEpicSpoon(int depth){
         Item newEpicSpoon = new Item('S', AsciiPanel.red, "The magic Spoon", ItemType.VICTORY, 20, 20);
         world.addAtEmptyLocation(newEpicSpoon, depth);

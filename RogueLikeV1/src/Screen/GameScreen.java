@@ -124,10 +124,12 @@ public class GameScreen implements Screen {
 		String equippedHelmet = "None";
 		String equippedArmor = "None";
 		String equippedWeapon = "None";
+		String equippedShield = "None";
 	
 		int equippedHelmetBonus = 0;
 		int equippedArmorBonus = 0;
 		int equippedWeaponBonus = 0;
+		int equippedShieldBonus = 0;
 		
 		if(player.getEquippedHelmet() != null)
 		{
@@ -147,13 +149,21 @@ public class GameScreen implements Screen {
 			equippedWeaponBonus = player.getEquippedWeapon().getAttackBonus();
 		}
 		
+		if(player.getEquippedShield() != null)
+		{
+			equippedShield = player.getEquippedShield().getName();
+			equippedShieldBonus = player.getEquippedShield().getDefenseBonus();
+		}
+		
 	    
 	    terminal.write(" Helmet: "   + equippedHelmet, 	100, 4, 	AsciiPanel.white);
 	    terminal.write("(+"  + equippedHelmetBonus + ")",	122, 4, 	AsciiPanel.yellow);
-	   	terminal.write(" Armor: " 	+ equippedArmor, 	100, 5, 	AsciiPanel.white);
-	   	terminal.write("(+" + equippedArmorBonus+ ")",	122, 5, 	AsciiPanel.yellow);
-	    terminal.write(" Weapon: " 	+ equippedWeapon, 	100, 6, 	AsciiPanel.white);
-	    terminal.write("(+" + equippedWeaponBonus+ ")",	122, 6, 	AsciiPanel.yellow);
+	   	terminal.write(" Armor: " 	+ equippedArmor, 		100, 5, 	AsciiPanel.white);
+	   	terminal.write("(+" + equippedArmorBonus+ ")",		122, 5, 	AsciiPanel.yellow);
+	    terminal.write(" Weapon: " 	+ equippedWeapon, 		100, 6, 	AsciiPanel.white);
+	    terminal.write("(+" + equippedWeaponBonus+ ")",		122, 6, 	AsciiPanel.yellow);
+	    terminal.write(" Shield: " 	+ equippedShield, 		100, 7, 	AsciiPanel.white);
+	    terminal.write("(+" + equippedShieldBonus+ ")",		122, 7, 	AsciiPanel.yellow);
 		
 	}
 
