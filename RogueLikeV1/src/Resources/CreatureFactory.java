@@ -16,9 +16,12 @@ import asciiPanel.AsciiPanel;
 
 public class CreatureFactory {
 	private World world;
+	private Creature player;
+	private List<String> messages;
 	
-	public CreatureFactory(World world){
+	public CreatureFactory(World world, List<String> m){
 		this.world = world;
+		this.messages = m;
 	}
 	
 	/**
@@ -43,6 +46,7 @@ public class CreatureFactory {
 //		System.out.println("helmet: " + player.getEquippedHelmet().getName());
 //		System.out.println("Armor: " + player.getEquippedArmor().getName());
 //		System.out.println("----------------------");
+		this.player = player;
 		return player;
 	}
 	
@@ -54,7 +58,7 @@ public class CreatureFactory {
 	{
 		Creature ghoul = new Creature(world, 'G',"Ghoul", AsciiPanel.brightGreen, 70, 15, 5);
 		world.addAtEmptyLocation(ghoul, depth);
-		new GhoulAi(ghoul);
+		new GhoulAi(ghoul, player);
 		return ghoul;
 	}
 	
@@ -70,11 +74,11 @@ public class CreatureFactory {
 		return copyCat;
 	}
 	
-	public Creature newDragon(int depth)
+	public Creature newDragon(int depth, Creature p)
 	{
 		Creature dragon = new Creature(world, 'D',"Dragon of Ultimate Awesomeness", AsciiPanel.brightRed, 300, 40, 10);
 		world.addAtEmptyLocation(dragon, depth);
-		new DragonAi(dragon);
+		new DragonAi(dragon, p);
 		return dragon;
 	}
 	
@@ -94,11 +98,11 @@ public class CreatureFactory {
 	 * Creates new Kobold object and inserts it into the world
 	 * @return
 	 */
-	public Creature newKobold(int depth)
+	public Creature newKobold(int depth, Creature p)
 	{
 		Creature kobold = new Creature(world, 'K',"Kobold", AsciiPanel.brightYellow, 15, 6, 0);
 		world.addAtEmptyLocation(kobold, depth);
-		new KoboldAi(kobold);
+		new KoboldAi(kobold, p);
 		return kobold;
 	}
 	
@@ -132,6 +136,7 @@ public class CreatureFactory {
 	 */
 	public void createCreatures() {
 		// TODO Auto-generated method stub
+		newPlayer(messages);
 		for (int z = 0; z < world.getDepth(); z++)
 		{
 //			for (int i = 0; i < 1; i++){
@@ -147,7 +152,7 @@ public class CreatureFactory {
 //		    }
 		    
 		    for (int i = 0; i < 15; i++){
-		        newKobold(z);
+		        newKobold(z, player);
 		    }
 //		    
 		    for (int i = 0; i < 4; i++){
@@ -157,7 +162,7 @@ public class CreatureFactory {
 		    
 		}
 		
-		newDragon(5);
+		newDragon(5, player);
 	}
 
 	/**

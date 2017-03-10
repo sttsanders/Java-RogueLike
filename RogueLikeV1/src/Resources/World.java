@@ -1,8 +1,11 @@
 package Resources;
 
 import java.awt.Color;
+import java.security.GuardedObject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.Vector;
 
 import Creatures.Creature;
 
@@ -104,7 +107,7 @@ public class World {
 	public void dig(int x, int y,int z) {
 	    if (returnTile(x,y,z).isDiggable())
 	    {
-	    	tiles[x][y][z] = Tile.FLOOR;
+	    	//tiles[x][y][z] = Tile.FLOOR;
 		}
 	}
 	
@@ -179,8 +182,8 @@ public class World {
 	public Item returnItem(int x, int y, int z){
 	    return items[x][y][z];
 	}
-
-
+	
+	
 	
 	
 }

@@ -231,6 +231,25 @@ public class WorldBuilder {
 				.connectRegions()
 				.addExitStairs();
 
+//		SetupTilesArray();
+//
+//        CreateRoomsAndCorridors();
+//
+//        SetTilesValuesForRooms();
+//        SetTilesValuesForCorridors();
+//
+//        InstantiateTiles();
+//        InstantiateOuterWalls();
 	}
+	
+	
+	//-------------------------------------New algorithm-------------------------------------------------
+	
+	
+	
+	
+	
+	
+	
 	
 }

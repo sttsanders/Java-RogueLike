@@ -37,7 +37,14 @@ private World world;
 	private Item equippedHelmet;
 	private Item equippedShield;
 	
+	private int visionRadius;
+	
 	private Dice dice = new Dice();
+	
+	public int visionRadius() 
+	{ 
+		return this.visionRadius; 
+	}
 	
 	public Item getEquippedShield()
 	{
@@ -89,17 +96,14 @@ private World world;
     { 
     	return this.defenseValue; 
     }
-    
 	public char getGlyph()
 	{
 		return this.glyph;
 	}
-	
 	public Color getColor()
 	{
 		return this.color;
 	}
-	
 	public Creature returnCreature(int wx, int wy, int wz) 
 	{
 	    return world.returnCreature(wx, wy, wz);
@@ -273,6 +277,7 @@ private World world;
 	    this.defenseValue = defense;
 	    this.name = name;
 	    this.inventory = new Inventory(30);
+	    this.visionRadius = 9;
 	}
 	
 
@@ -319,7 +324,7 @@ private World world;
 
 	public void update(){   
 	    ai.onUpdate();  
-	    //heal();
+	    heal();
 	}
 
 	/**
@@ -438,6 +443,14 @@ private World world;
         inventory.removeFromInventory(item);
         world.addAtEmptySpace(item, x, y, z);
     }
+	
+	public boolean canSee(int wx, int wy, int wz){
+		return ai.canSee(wx, wy, wz);
+	}
+	
+	public Tile tile(int wx, int wy, int wz) {
+		return world.returnTile(wx, wy, wz);
+	}
 	
 	
 

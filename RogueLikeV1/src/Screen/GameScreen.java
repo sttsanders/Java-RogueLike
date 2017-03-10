@@ -16,7 +16,7 @@ import asciiPanel.AsciiPanel;
 
 public class GameScreen implements Screen {
 	private World world;
-	private Creature player;
+	public Creature player;
 	private int screenWidth;
 	private int screenHeight;
 	private List<String> messages;
@@ -28,12 +28,12 @@ public class GameScreen implements Screen {
 		messages = new ArrayList<String>();
 		createWorld();
 		
-		CreatureFactory cF = new CreatureFactory(world);
+		CreatureFactory cF = new CreatureFactory(world, messages);
 		cF.createCreatures();
 		ItemFactory iF = new ItemFactory(world);
 		iF.createItems();
-		
 		createPlayer(cF);
+
 		
 	}
 	
@@ -196,18 +196,12 @@ public class GameScreen implements Screen {
 		}
 	}
 
-	private boolean userIsTryingToWin(){
-	    return player.z == 0 && world.returnTile(player.x, player.y, player.z) == Tile.STAIRS_UP;
-	}
 
 	private Screen userExits(){
-		for(Item item : player.getInventory().getItems())
-		{
-			System.out.println(item);
-		}
+
 	    for (Item item : player.getInventory().getItems())
 	    {
-	    	System.out.println(item.getType());
+	    	
 	        if (item != null && item.getType() == ItemType.VICTORY)
 	        {
 	            return new WinScreen();
@@ -243,12 +237,27 @@ public class GameScreen implements Screen {
 	         case 'g':
 	         case ',': player.pickup(); break;
 	         case '<':
-	             if (userIsTryingToWin())
-	              return userExits();
-	             else
-	              player.moveBy( 0, 0, -1); 
-	             break;
-	         case '>': player.moveBy( 0, 0, 1); break;
+//	             if (userIsTryingToWin())
+//	              return userExits();
+//	             else 
+	             if(world.returnTile(player.x, player.y, player.z) == Tile.STAIRS_UP && player.z == 0)
+	             {
+	            	 userExits();
+	            	 break;
+	             }
+	             else if(world.returnTile(player.x, player.y, player.z) == Tile.STAIRS_UP)
+	             {
+	            	 player.moveBy( 0, 0, -1); 
+		             break;
+
+	             }
+	         case '>': 
+	        	 if(world.returnTile(player.x, player.y, player.z) == Tile.STAIRS_DOWN)
+	        	 {	 
+	        		 System.out.println("trying to go >");
+	        		 player.moveBy( 0, 0, 1); break;
+	        	 }
+	        	 break;
 	         }
 	     }
 	    
