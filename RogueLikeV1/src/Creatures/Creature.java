@@ -13,8 +13,9 @@ import Screen.GameScreen;
 import asciiPanel.AsciiPanel;
 import java.awt.Container;
 import java.io.IOException;
+import java.io.Serializable;
 
-public class Creature {
+public class Creature implements Serializable {
 private World world;
 
 	public int x;
@@ -395,7 +396,7 @@ private World world;
             	{
 	                if(item.getAttackBonus() > this.getEquippedWeapon().getAttackBonus())
 	                {
-	                	System.out.println("equipped weapon");
+
 	                	this.equip(item);
 	                }
 	                else
@@ -405,7 +406,7 @@ private World world;
             	}
             	else
             	{
-            		System.out.println("equipped weapon, none present: " + item.getType());
+
             		this.equip(item);
             	}
             }
@@ -415,7 +416,7 @@ private World world;
             	{
 	                if(item.getDefenseBonus() > this.getEquippedShield().getDefenseBonus())
 	                {
-	                	System.out.println("equipped shield");
+
 	                	this.equip(item);
 	                }
 	                else
@@ -425,7 +426,7 @@ private World world;
             	}
             	else
             	{
-            		System.out.println("equipped shield, none present: " + item.getType());
+
             		this.equip(item);
             	}
             }

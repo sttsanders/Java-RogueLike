@@ -1,6 +1,9 @@
 package Resources;
 
 import java.awt.Color;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.security.GuardedObject;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,14 +12,35 @@ import java.util.Vector;
 
 import Creatures.Creature;
 
-public class World {
-	private Tile[][][] tiles;
-	private Item[][][] items;
+public class World implements Serializable{
+	public Tile[][][] tiles;
+	public Item[][][] items;
 	private int width;
 	private int height;
 	private int depth;
 	private int currentDepth;
 	public List<Creature> creatures;
+	
+	public void saveWorld()
+	{
+		 try {
+		        FileOutputStream fos = new FileOutputStream("lvlSave.xml");
+		        ObjectOutputStream oos = new ObjectOutputStream(fos);
+		        oos.writeObject(this.tiles);
+				System.out.println("Saved world");
+
+		        oos.writeObject(this.items);
+				System.out.println("Saved items");
+				
+		        oos.writeObject(this.creatures);
+				System.out.println("Saved creatures");
+
+				fos.close();
+			
+		    } catch (Exception e) {
+		    	System.out.println("Fail: " + e);
+		    }
+	}
 	
 	public int getDepth()
 	{
@@ -167,20 +191,25 @@ public class World {
 	}
 
 	public void addAtEmptyLocation(Item item, int depth) {
-    int x;
-    int y;
-    
-    do {
-        x = (int)(Math.random() * width);
-        y = (int)(Math.random() * height);
-    }
-    while (!returnTile(x,y,depth).isGround() || returnItem(x,y,depth) != null);
-    
-    items[x][y][depth] = item;
+	    int x;
+	    int y;
+	    
+	    do {
+	        x = (int)(Math.random() * width);
+	        y = (int)(Math.random() * height);
+	    }
+	    while (!returnTile(x,y,depth).isGround() || returnItem(x,y,depth) != null);
+	    
+	    	items[x][y][depth] = item;
 	}
 	
 	public Item returnItem(int x, int y, int z){
 	    return items[x][y][z];
+	}
+
+	public void save() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

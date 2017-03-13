@@ -1,8 +1,9 @@
 package Resources;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Dice {
+public class Dice implements Serializable {
 	
 	Random r = new Random(); 
 	

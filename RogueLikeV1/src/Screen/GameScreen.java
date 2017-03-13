@@ -1,6 +1,12 @@
 package Screen;
 
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,10 +19,11 @@ import Resources.Tile;
 import Resources.World;
 import Resources.WorldBuilder;
 import asciiPanel.AsciiPanel;
+import Resources.SaveState;
 
 public class GameScreen implements Screen {
-	private World world;
-	public Creature player;
+	public static World world;
+	public static Creature player;
 	private int screenWidth;
 	private int screenHeight;
 	private List<String> messages;
@@ -26,16 +33,48 @@ public class GameScreen implements Screen {
 		screenWidth = 100;
 		screenHeight = 48;
 		messages = new ArrayList<String>();
-		createWorld();
 		
-		CreatureFactory cF = new CreatureFactory(world, messages);
-		cF.createCreatures();
-		ItemFactory iF = new ItemFactory(world);
-		iF.createItems();
-		createPlayer(cF);
-
+//		
+//		createWorld();
+//		CreatureFactory cF = new CreatureFactory(world, messages);
+//		cF.createCreatures();
+//		ItemFactory iF = new ItemFactory(world);
+//		iF.createItems();
+//		createPlayer(cF);
 		
+		File save = new File("lvlSave.xml");
+		if (save.exists()) {
+			try {
+				SaveState.load();
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+				System.out.println("Could not open save file, may be corrupted :(");
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.println("Could not open save file, may be corrupted :(");
+			}
+		} else {
+			System.out.println("Save not found, starting new game...");
+			createWorld();
+			CreatureFactory cF = new CreatureFactory(world, messages);
+			cF.createCreatures();
+			ItemFactory iF = new ItemFactory(world);
+			iF.createItems();
+			createPlayer(cF);
+		}
 	}
+	
+	public GameScreen(World w){
+		screenWidth = 100;
+		screenHeight = 48;
+		messages = new ArrayList<String>();
+		this.world = w;
+//		CreatureFactory cF = new CreatureFactory(w, messages);
+//		ItemFactory iF = new ItemFactory(w);
+//		
+		System.out.println(w);
+	}
+	
 	
 	private void createPlayer(CreatureFactory cF) {
 		player = cF.newPlayer(messages);
@@ -94,7 +133,7 @@ public class GameScreen implements Screen {
 		terminal.write(" Find the magic spoon ", 100, 17, AsciiPanel.white);
 		terminal.write(" and escape! ", 100, 18, AsciiPanel.white);
 	}
-	
+
 	private void showHealth(AsciiPanel terminal) 
 	{
 		int localHealth = player.getHealth();
@@ -117,7 +156,7 @@ public class GameScreen implements Screen {
 	    }
 		
 	}
-	
+
 	private void showEquippedStuff(AsciiPanel terminal) 
 	{
 		
@@ -195,20 +234,6 @@ public class GameScreen implements Screen {
 			}
 		}
 	}
-
-
-	private Screen userExits(){
-
-	    for (Item item : player.getInventory().getItems())
-	    {
-	    	
-	        if (item != null && item.getType() == ItemType.VICTORY)
-	        {
-	            return new WinScreen();
-	        }
-	    }
-	    return this;
-	}
 	
 	@Override
 	public Screen respondToUserInput(KeyEvent key) {
@@ -234,27 +259,43 @@ public class GameScreen implements Screen {
 	         }
 	        
 	         switch (key.getKeyChar()){
-	         case 'g':
-	         case ',': player.pickup(); break;
+	         case 'g': player.pickup(); break;
 	         case '<':
 //	             if (userIsTryingToWin())
 //	              return userExits();
 //	             else 
 	             if(world.returnTile(player.x, player.y, player.z) == Tile.STAIRS_UP && player.z == 0)
 	             {
-	            	 userExits();
-	            	 break;
+	            	 for (Item item : player.getInventory().getItems())
+	         	    {
+	         	    	
+	         	        if (item != null && item.getType() == ItemType.VICTORY)
+	         	        {
+	         	            return new WinScreen();
+	         	        }
+	         	    }
+	         	    return this;
 	             }
 	             else if(world.returnTile(player.x, player.y, player.z) == Tile.STAIRS_UP)
 	             {
+	            	 try {
+						SaveState.save();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 	            	 player.moveBy( 0, 0, -1); 
 		             break;
 
 	             }
 	         case '>': 
 	        	 if(world.returnTile(player.x, player.y, player.z) == Tile.STAIRS_DOWN)
-	        	 {	 
-	        		 System.out.println("trying to go >");
+	        	 {	 try {
+					SaveState.save();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 	        		 player.moveBy( 0, 0, 1); break;
 	        	 }
 	        	 break;

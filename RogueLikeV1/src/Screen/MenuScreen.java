@@ -1,18 +1,24 @@
 package Screen;
 
 import java.awt.event.KeyEvent;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 
 import com.sun.glass.events.WindowEvent;
 
+import Resources.World;
 import asciiPanel.AsciiPanel;
 
 public class MenuScreen implements Screen {
+	
+	GameScreen g = new GameScreen();
+	
 	@Override
 	public void displayOutput(AsciiPanel terminal) {
 		// TODO Auto-generated method stub
 
 		terminal.write("(N)ew Game", 1, 3);
-
+		terminal.write("(L)oad", 1 ,4);
 		terminal.write("(E)xit", 1, 5);
 	}
 
@@ -20,10 +26,10 @@ public class MenuScreen implements Screen {
 	public Screen respondToUserInput(KeyEvent key) {
 		switch (key.getKeyCode()){
 	        case KeyEvent.VK_N: return new GameScreen();
-	        //case KeyEvent.VK_E: return new GameScreen();
+
 	        default : return this;
-        }
-		
-		
+        }	
 	}
+	
+	
 }

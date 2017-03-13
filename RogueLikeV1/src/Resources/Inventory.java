@@ -1,6 +1,8 @@
 package Resources;
 
-public class Inventory {
+import java.io.Serializable;
+
+public class Inventory implements Serializable {
 	private Item[] items;
     public Item[] getItems() 
     { 

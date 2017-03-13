@@ -2,6 +2,7 @@ package Screen;
 
 import java.awt.event.KeyEvent;
 
+import Resources.SaveState;
 import asciiPanel.AsciiPanel;
 
 public class LoseScreen implements Screen {
@@ -22,6 +23,7 @@ public class LoseScreen implements Screen {
 		terminal.writeCenter("    _MM_      YMMMMM9    YMMM9MM_      `YMMM9'Yb._MM_     YMMMM9        _MMMMMMM9'  YMMMM9  `YMMM9'Yb. YMMMMMM_",coordY++);
 		
 		terminal.writeCenter("-- press [enter] to restart --", 25);
+		SaveState.deleteSave();
 	}
 
 	@Override

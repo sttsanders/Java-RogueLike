@@ -1,8 +1,9 @@
 package Resources;
 
 import java.awt.Color;
+import java.io.Serializable;
 
-public class Item {
+public class Item implements Serializable {
 	private char glyph;
     private Color color;
     private String name;

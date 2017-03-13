@@ -1,5 +1,6 @@
 package Resources;
 
+import java.io.Serializable;
 import java.util.List;
 
 import Ai.BeeAi;
@@ -14,7 +15,7 @@ import Ai.QuillBoarAi;
 import Creatures.Creature;
 import asciiPanel.AsciiPanel;
 
-public class CreatureFactory {
+public class CreatureFactory implements Serializable {
 	private World world;
 	private Creature player;
 	private List<String> messages;
@@ -31,21 +32,11 @@ public class CreatureFactory {
 	 */
 	public Creature newPlayer(List<String> messages){
 		Creature player = new Creature(world, (char)1,"You", AsciiPanel.brightWhite, 400, 0, 0);
-		
-//		Item ironArmor = new Item('i', AsciiPanel.green, "iron armor", ItemType.ARMOR, 0, 4);
-//		Item ironHelmet = new Item('i', AsciiPanel.green, "iron helmet", ItemType.HELMET, 0, 3);
-//		Item sword = new Item('i', AsciiPanel.green, "sword",ItemType.WEAPON, 4, 0);
-//		player.equip(ironArmor);
-//		player.equip(ironHelmet);
-//		player.equip(sword);
+
 		
 		world.addAtEmptyLocation(player, 0);
 		new PlayerAi(player, messages);
-//		System.out.println("--------player--------");
-//		System.out.println("Weapon: " + player.getEquippedWeapon().getName());
-//		System.out.println("helmet: " + player.getEquippedHelmet().getName());
-//		System.out.println("Armor: " + player.getEquippedArmor().getName());
-//		System.out.println("----------------------");
+
 		this.player = player;
 		return player;
 	}

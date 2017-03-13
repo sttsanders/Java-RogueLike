@@ -1,11 +1,13 @@
 package Ai;
 
+import java.io.Serializable;
+
 import Creatures.Creature;
 import Resources.Coordinate;
 import Resources.Line;
 import Resources.Tile;
 
-public class CreatureAi {
+public class CreatureAi implements Serializable {
 	protected Creature creature;
 	
 	public CreatureAi(Creature creature){

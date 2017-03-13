@@ -18,18 +18,11 @@ public class DragonAi extends CreatureAi
 	}
 	
 	public void onUpdate(){
-		if (target != null && creature.canSee(target.x, target.y, target.z))
-	          hunt(target);
-	      else
+
 	          wanderAround();
     }
 	
 	public void hunt(Creature target){
-	      List<Coordinate> points = new Path(creature, target.x, target.y).points();
-	  
-	      int mx = points.get(0).x - creature.x;
-	      int my = points.get(0).y - creature.y;
-	  
-	      creature.moveBy(mx, my, 0);
+
 	  }
 }
