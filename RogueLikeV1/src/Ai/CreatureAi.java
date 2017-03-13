@@ -8,6 +8,10 @@ import Resources.Line;
 import Resources.Tile;
 
 public class CreatureAi implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected Creature creature;
 	
 	public CreatureAi(Creature creature){
