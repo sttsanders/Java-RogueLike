@@ -136,20 +136,28 @@ private World world;
 			{
 				return;
 			}
-			if (item.getType() == ItemType.ARMOR){
+			if (item.getType() == ItemType.ARMOR)
+			{
 				this.equippedArmor = item;
+				notify(this.getName() + " put on a " + this.equippedArmor.getName() + "!");
 			} 
-			if (item.getType() == ItemType.WEAPON){
-				System.out.println("equipping weapon");
+			if (item.getType() == ItemType.WEAPON)
+			{
+
 				this.equippedWeapon = item;
+				notify(this.getName() + " equipped a " + this.equippedWeapon.getName() + "!");
 			} 
-			if (item.getType() == ItemType.HELMET){
-				System.out.println("equipping helmet");
+			if (item.getType() == ItemType.HELMET)
+			{
+
 				this.equippedHelmet = item;
+				notify(this.getName() + " put on a " + this.equippedHelmet.getName() + "!");
 			} 
-			if (item.getType() == ItemType.SHIELD){
-				System.out.println("equipping shield");
+			if (item.getType() == ItemType.SHIELD)
+			{
+
 				this.equippedShield = item;
+				notify(this.getName() + " equipped a " + this.equippedShield.getName() + "!");
 			} 
 		
 
@@ -361,6 +369,7 @@ private World world;
 	                if(item.getDefenseBonus() > this.getEquippedArmor().getDefenseBonus())
 	                {
 	                	this.equip(item);
+
 	                }
 	                else
 	                {
@@ -369,6 +378,7 @@ private World world;
             	}
             	else
             	{
+            		notify("Currently equipped stuff is better!");
             		this.equip(item);
             	}
             }
@@ -382,6 +392,7 @@ private World world;
 	                }
 	                else
 	                {
+	                	notify("Currently equipped stuff is better!");
 	                	inventory.addToInventory(item);
 	                }
             	}
@@ -401,6 +412,7 @@ private World world;
 	                }
 	                else
 	                {
+	                	notify("Currently equipped stuff is better!");
 	                	inventory.addToInventory(item);
 	                }
             	}
@@ -421,6 +433,7 @@ private World world;
 	                }
 	                else
 	                {
+	                	notify("Currently equipped stuff is better!");
 	                	inventory.addToInventory(item);
 	                }
             	}

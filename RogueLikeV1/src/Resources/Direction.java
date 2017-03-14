@@ -1,6 +1,7 @@
 package Resources;
 
-public enum Direction {
+public enum Direction 
+{
 	North, 
 	South, 
 	East, 
@@ -32,7 +33,8 @@ public enum Direction {
     	}
     }
 
-	public static int returnInt(Direction direction) {
+	public static int returnInt(Direction direction) 
+	{
     	switch(direction)
     	{
     	case North: 	return 0;

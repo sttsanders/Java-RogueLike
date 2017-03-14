@@ -12,22 +12,26 @@ public class PathFinder {
     private HashMap<Coordinate, Coordinate> parents;
     private HashMap<Coordinate,Integer> totalCost;
   
-    public PathFinder() {
+    public PathFinder() 
+    {
           this.open = new ArrayList<Coordinate>();
           this.closed = new ArrayList<Coordinate>();
           this.parents = new HashMap<Coordinate, Coordinate>();
           this.totalCost = new HashMap<Coordinate, Integer>();
     }
   
-    private int heuristicCost(Coordinate from, Coordinate to) {
+    private int heuristicCost(Coordinate from, Coordinate to) 
+    {
           return Math.max(Math.abs(from.x - to.x), Math.abs(from.y - to.y));
     }
 
-    private int costToGetTo(Coordinate from) {
+    private int costToGetTo(Coordinate from) 
+    {
           return parents.get(from) == null ? 0 : (1 + costToGetTo(parents.get(from)));
     }
   
-    private int totalCost(Coordinate from, Coordinate to) {
+    private int totalCost(Coordinate from, Coordinate to) 
+    {
           if (totalCost.containsKey(from))
               return totalCost.get(from);
         
@@ -36,12 +40,14 @@ public class PathFinder {
           return cost;
     }
 
-    private void reParent(Coordinate child, Coordinate parent){
+    private void reParent(Coordinate child, Coordinate parent)
+    {
           parents.put(child, parent);
           totalCost.remove(child);
     }
 
-    public ArrayList<Coordinate> findPath(Creature creature, Coordinate start, Coordinate end, int maxTries) {
+    public ArrayList<Coordinate> findPath(Creature creature, Coordinate start, Coordinate end, int maxTries) 
+    {
           open.clear();
           closed.clear();
           parents.clear();
@@ -63,7 +69,8 @@ public class PathFinder {
           return null;
     }
 
-     private Coordinate getClosestPoint(Coordinate end) {
+     private Coordinate getClosestPoint(Coordinate end) 
+     {
     	 Coordinate closest = open.get(0);
          for (Coordinate other : open){
              if (totalCost(other, end) < totalCost(closest, end))
@@ -72,7 +79,8 @@ public class PathFinder {
          return closest;
      }
 
-     private void checkNeighbors(Creature creature, Coordinate end, Coordinate closest) {
+     private void checkNeighbors(Creature creature, Coordinate end, Coordinate closest) 
+     {
          for (Coordinate neighbor : closest.whichEightNeighbors()) {
              if (closed.contains(neighbor)
               || !creature.canEnter(neighbor.x, neighbor.y, creature.z)
@@ -86,12 +94,14 @@ public class PathFinder {
          }
      }
 
-     private void reParentNeighbor(Coordinate closest, Coordinate neighbor) {
+     private void reParentNeighbor(Coordinate closest, Coordinate neighbor) 
+     {
          reParent(neighbor, closest);
          open.add(neighbor);
      }
 
-     private void reParentNeighborIfNecessary(Coordinate closest, Coordinate neighbor) {
+     private void reParentNeighborIfNecessary(Coordinate closest, Coordinate neighbor) 
+     {
     	 Coordinate originalParent = parents.get(neighbor);
          double currentCost = costToGetTo(neighbor);
          reParent(neighbor, closest);
@@ -103,7 +113,8 @@ public class PathFinder {
              reParent(neighbor, originalParent);
      }
 
-     private ArrayList<Coordinate> createPath(Coordinate start, Coordinate end) {
+     private ArrayList<Coordinate> createPath(Coordinate start, Coordinate end) 
+     {
          ArrayList<Coordinate> path = new ArrayList<Coordinate>();
 
          while (!end.equals(start)) {

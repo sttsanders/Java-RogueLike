@@ -62,16 +62,20 @@ public class World implements Serializable{
 		return currentDepth;
 	}
 	
-	public Creature returnCreature(int x, int y, int z){
-		for (Creature c : creatures){
-			if (c.x == x && c.y == y && c.z == z){
+	public Creature returnCreature(int x, int y, int z)
+	{
+		for (Creature c : creatures)
+		{
+			if (c.x == x && c.y == y && c.z == z)
+			{
 				return c;
 			}
 		}
 		return null;
 	}
 
-	public void remove(Creature other) {
+	public void remove(Creature other) 
+	{
 	    creatures.remove(other);
 	}
 	
@@ -86,9 +90,11 @@ public class World implements Serializable{
 		
 	}
 	
-	public void update(){
+	public void update()
+	{
 		List<Creature> toUpdate = new ArrayList<Creature>(creatures);
-		for (Creature creature : toUpdate){
+		for (Creature creature : toUpdate)
+		{
 			creature.update();
 		}
 	}
@@ -106,7 +112,8 @@ public class World implements Serializable{
 		}
 	}
 
-	public char returnGlyph(int x, int y, int z){
+	public char returnGlyph(int x, int y, int z)
+	{
 	    Creature creature = returnCreature(x, y, z);
 	    if (creature != null)
 	        return creature.getGlyph();
@@ -117,7 +124,8 @@ public class World implements Serializable{
 	    return returnTile(x, y, z).getGlyph();
 	}
 	
-	public Color returnColor(int x, int y, int z){
+	public Color returnColor(int x, int y, int z)
+	{
 	    Creature creature = returnCreature(x, y, z);
 	    if (creature != null)
 	        return creature.getColor();
@@ -128,10 +136,11 @@ public class World implements Serializable{
 	    return returnTile(x, y, z).getColor();
 	}
 	
-	public void dig(int x, int y,int z) {
+	public void dig(int x, int y,int z) 
+	{
 	    if (returnTile(x,y,z).isDiggable())
 	    {
-	    	//tiles[x][y][z] = Tile.FLOOR;
+	    	tiles[x][y][z] = Tile.FLOOR;
 		}
 	}
 	
@@ -139,7 +148,8 @@ public class World implements Serializable{
 	    items[x][y][z] = null;
 	}
 	
-	public void addAtEmptySpace(Item item, int x, int y, int z){
+	public void addAtEmptySpace(Item item, int x, int y, int z)
+	{
 	    if (item == null)
 	        return;
 	    
@@ -155,13 +165,15 @@ public class World implements Serializable{
 	        if (!returnTile(p.x, p.y, p.z).isGround())
 	            continue;
 	         
-	        if (items[p.x][p.y][p.z] == null){
+	        if (items[p.x][p.y][p.z] == null)
+	        {
 	            items[p.x][p.y][p.z] = item;
 	            Creature c = this.returnCreature(p.x, p.y, p.z);
 	            if (c != null)
-	                c.notify("A %s lands between your feet.", item.getName());
+	                c.notify("You drop a  %s.", item.getName());
 	            return;
-	        } else {
+	        } else 
+	        {
 	            List<Coordinate> neighbors = p.whichEightNeighbors();
 	            neighbors.removeAll(checked);
 	            points.addAll(neighbors);
@@ -173,7 +185,8 @@ public class World implements Serializable{
 	 * adds creature to random location on the grid.
 	 * @param creature
 	 */
-	public void addAtEmptyLocation(Creature creature, int z){
+	public void addAtEmptyLocation(Creature creature, int z)
+	{
 		int x;
 		int y;
 		
@@ -190,24 +203,26 @@ public class World implements Serializable{
 		creatures.add(creature);
 	}
 
-	public void addAtEmptyLocation(Item item, int depth) {
+	public void addAtEmptyLocation(Item item, int depth) 
+	{
 	    int x;
 	    int y;
 	    
-	    do {
+	    do 
+	    {
 	        x = (int)(Math.random() * width);
 	        y = (int)(Math.random() * height);
 	    }
 	    while (!returnTile(x,y,depth).isGround() || returnItem(x,y,depth) != null);
-	    
-	    	items[x][y][depth] = item;
+	    items[x][y][depth] = item;
 	}
 	
 	public Item returnItem(int x, int y, int z){
 	    return items[x][y][z];
 	}
 
-	public void save() {
+	public void save() 
+	{
 		// TODO Auto-generated method stub
 		
 	}

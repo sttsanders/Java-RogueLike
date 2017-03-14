@@ -14,25 +14,29 @@ public class CreatureAi implements Serializable {
 	private static final long serialVersionUID = 1L;
 	protected Creature creature;
 	
-	public CreatureAi(Creature creature){
+	public CreatureAi(Creature creature)
+	{
 		this.creature = creature;
 		this.creature.setCreatureAi(this);
 	}
 	
 	public void onEnter(int x, int y, int z, Tile tile)
 	{
-		if (tile.isGround()){
+		if (tile.isGround())
+		{
 	         creature.x = x;
 	         creature.y = y;
 	         creature.z = z;
 	    }
 	}
 	
-	public void onUpdate(){
+	public void onUpdate()
+	{
 		
 	}
 	
-	public boolean canSee(int wx, int wy, int wz) {
+	public boolean canSee(int wx, int wy, int wz) 
+	{
 		if (creature.z != wz)
 		{
 			return false;
@@ -52,7 +56,8 @@ public class CreatureAi implements Serializable {
 	}
 
 
-	public void wanderAround(){
+	public void wanderAround()
+	{
 	    int mx = (int)(Math.random() * 3) - 1;
 	    int my = (int)(Math.random() * 3) - 1;
 	    
@@ -69,7 +74,8 @@ public class CreatureAi implements Serializable {
 	    }
 	}
 	
-	public void onNotify(String format) {
+	public void onNotify(String format) 
+	{
 		// TODO Auto-generated method stub
 		
 	}

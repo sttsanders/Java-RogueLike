@@ -40,7 +40,8 @@ public class Inventory implements Serializable {
         }
     }
     
-    public boolean isFull(){
+    public boolean isFull()
+    {
         int size = 0;
         for (int i = 0; i < items.length; i++)
         {

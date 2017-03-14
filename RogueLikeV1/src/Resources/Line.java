@@ -6,9 +6,13 @@ import java.util.List;
 
 public class Line implements Iterable<Coordinate> {
 	private List<Coordinate> points;
-	public List<Coordinate> getPoints() { return points; }
+	public List<Coordinate> getPoints() 
+	{ 
+		return points; 
+	}
 	
-	public Line(int x0, int y0, int x1, int y1) {
+	public Line(int x0, int y0, int x1, int y1) 
+	{
 		points = new ArrayList<Coordinate>();
 		
 		int dx = Math.abs(x1-x0);
@@ -18,18 +22,23 @@ public class Line implements Iterable<Coordinate> {
 		int sy = y0 < y1 ? 1 : -1;
 		int err = dx-dy;
 		
-		while (true){
+		while (true)
+		{
 			points.add(new Coordinate(x0, y0, 0));
 			
 			if (x0==x1 && y0==y1)
 				break;
 			
-			int e2 = err * 2;
-			if (e2 > -dx) {
+			int eTimes2 = err * 2;
+			
+			if (eTimes2 > -dx) 
+			{
 				err -= dy;
 				x0 += sx;
 			}
-			if (e2 < dx){
+			
+			if (eTimes2 < dx)
+			{
 				err += dx;
 				y0 += sy;
 			}
@@ -37,7 +46,8 @@ public class Line implements Iterable<Coordinate> {
 	}
 
 	@Override
-	public Iterator<Coordinate> iterator() {
+	public Iterator<Coordinate> iterator() 
+	{
 		return points.iterator();
 	}
 }

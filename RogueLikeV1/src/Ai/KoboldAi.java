@@ -15,11 +15,13 @@ public class KoboldAi extends CreatureAi {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void onUpdate(){
+	public void onUpdate()
+	{
 	          wanderAround();
     }
 	
-	public void hunt(Creature target){
+	public void hunt(Creature target)
+	{
 
 	}
 

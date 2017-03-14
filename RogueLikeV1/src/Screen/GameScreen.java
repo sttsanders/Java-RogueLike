@@ -34,13 +34,6 @@ public class GameScreen implements Screen {
 		screenHeight = 48;
 		messages = new ArrayList<String>();
 		
-//		
-//		createWorld();
-//		CreatureFactory cF = new CreatureFactory(world, messages);
-//		cF.createCreatures();
-//		ItemFactory iF = new ItemFactory(world);
-//		iF.createItems();
-//		createPlayer(cF);
 		
 		File save = new File("lvlSave.xml");
 		if (save.exists()) {
@@ -64,24 +57,23 @@ public class GameScreen implements Screen {
 		}
 	}
 	
-	public GameScreen(World w){
+	public GameScreen(World w)
+	{
 		screenWidth = 100;
 		screenHeight = 48;
 		messages = new ArrayList<String>();
 		this.world = w;
-//		CreatureFactory cF = new CreatureFactory(w, messages);
-//		ItemFactory iF = new ItemFactory(w);
-//		
-		System.out.println(w);
 	}
 	
 	
-	private void createPlayer(CreatureFactory cF) {
+	private void createPlayer(CreatureFactory cF)
+	{
 		player = cF.newPlayer(messages);
 		
 	}
 
-	private void displayMessages(AsciiPanel terminal, List<String> messages) {
+	private void displayMessages(AsciiPanel terminal, List<String> messages)
+	{
 	    int top = screenHeight - messages.size();
 	    top = top+2;
 	    for (int i = 0; i < messages.size(); i++){
@@ -90,18 +82,26 @@ public class GameScreen implements Screen {
 	    messages.clear();
 	}
 	
-	private void createWorld(){
+	private void createWorld()
+	{
 		world = new WorldBuilder(120, 68, 6)
 					.makeCaves()
 					.build();
 	}
 	
-	public int getScrollX() { return Math.max(0, Math.min(player.x - screenWidth / 2, world.getWidth() - screenWidth)); }
+	public int getScrollX() 
+	{ 
+		return Math.max(0, Math.min(player.x - screenWidth / 2, world.getWidth() - screenWidth)); 
+	}
 	
-	public int getScrollY() { return Math.max(0, Math.min(player.y - screenHeight / 2, world.getHeight() - screenHeight)); }
+	public int getScrollY() 
+	{ 
+		return Math.max(0, Math.min(player.y - screenHeight / 2, world.getHeight() - screenHeight)); 
+	}
 	
 	@Override
-	public void displayOutput(AsciiPanel terminal) {
+	public void displayOutput(AsciiPanel terminal)
+	{
 		
 		int left = getScrollX();
 		int top = getScrollY(); 
@@ -133,7 +133,6 @@ public class GameScreen implements Screen {
 		terminal.write(" Find the magic spoon ", 100, 17, AsciiPanel.white);
 		terminal.write(" and escape! ", 100, 18, AsciiPanel.white);
 	}
-
 	private void showHealth(AsciiPanel terminal) 
 	{
 		int localHealth = player.getHealth();
@@ -156,19 +155,12 @@ public class GameScreen implements Screen {
 	    }
 		
 	}
-
 	private void showEquippedStuff(AsciiPanel terminal) 
 	{
 		
-		String equippedHelmet = "None";
-		String equippedArmor = "None";
-		String equippedWeapon = "None";
-		String equippedShield = "None";
+		String equippedHelmet = "None", equippedArmor = "None", equippedWeapon = "None", equippedShield = "None";
 	
-		int equippedHelmetBonus = 0;
-		int equippedArmorBonus = 0;
-		int equippedWeaponBonus = 0;
-		int equippedShieldBonus = 0;
+		int equippedHelmetBonus = 0, equippedArmorBonus = 0, equippedWeaponBonus = 0, equippedShieldBonus = 0;
 		
 		if(player.getEquippedHelmet() != null)
 		{
@@ -195,7 +187,7 @@ public class GameScreen implements Screen {
 		}
 		
 	    
-	    terminal.write(" Helmet: "   + equippedHelmet, 	100, 4, 	AsciiPanel.white);
+	    terminal.write(" Helmet: "   + equippedHelmet, 		100, 4, 	AsciiPanel.white);
 	    terminal.write("(+"  + equippedHelmetBonus + ")",	122, 4, 	AsciiPanel.yellow);
 	   	terminal.write(" Armor: " 	+ equippedArmor, 		100, 5, 	AsciiPanel.white);
 	   	terminal.write("(+" + equippedArmorBonus+ ")",		122, 5, 	AsciiPanel.yellow);
@@ -205,24 +197,24 @@ public class GameScreen implements Screen {
 	    terminal.write("(+" + equippedShieldBonus+ ")",		122, 7, 	AsciiPanel.yellow);
 		
 	}
-
 	private void showLevel(AsciiPanel terminal)
 	{
 		String statistics = " Current Floor: " + world.getCurrentDepth();
-
+		
 		terminal.write(statistics, 100, 8, AsciiPanel.white);
 		terminal.write(" -------------------------", 100, 9, AsciiPanel.white);
 	}
-	
 	private int calculatePercentage(int cH, int mH)
 	{
 		double result =  ((double)cH / (double)mH) * 100;
 		return (int)result;
 	}
-	
-	private void displayTiles(AsciiPanel terminal, int left, int top) {
-		for (int x = 0; x < screenWidth; x++){
-			for (int y = 0; y < screenHeight; y++){
+	private void displayTiles(AsciiPanel terminal, int left, int top)
+	{
+		for (int x = 0; x < screenWidth; x++)
+		{
+			for (int y = 0; y < screenHeight; y++)
+			{
 				int wx = x + left;
 				int wy = y + top;
 
@@ -236,34 +228,33 @@ public class GameScreen implements Screen {
 	}
 	
 	@Override
-	public Screen respondToUserInput(KeyEvent key) {
-		if (subscreen != null) {
+	public Screen respondToUserInput(KeyEvent key)
+	{
+		if (subscreen != null) 
+		{
 	         subscreen = subscreen.respondToUserInput(key);
-	     } else {
+	    } 
+		else 
+		{
 	         switch (key.getKeyCode())
 	         {
-	         case KeyEvent.VK_ESCAPE : return new MenuScreen();
-	         case KeyEvent.VK_E : return new LoseScreen(); 
-	         case KeyEvent.VK_LEFT:
-	         case KeyEvent.VK_H: player.moveBy(-1, 0, 0); break;
-	         case KeyEvent.VK_RIGHT:
-	         case KeyEvent.VK_L: player.moveBy( 1, 0, 0); break;
-	         case KeyEvent.VK_UP:
-	         case KeyEvent.VK_K: player.moveBy( 0,-1, 0); break;
-	         case KeyEvent.VK_DOWN:
-	         case KeyEvent.VK_J: player.moveBy( 0, 1, 0); break;
-//	         case KeyEvent.VK_Y: player.moveBy(-1,-1, 0); break;
-//	         case KeyEvent.VK_U: player.moveBy( 1,-1, 0); break;
-//	         case KeyEvent.VK_B: player.moveBy(-1, 1, 0); break;
-//	         case KeyEvent.VK_N: player.moveBy( 1, 1, 0); break;
+		         case KeyEvent.VK_ESCAPE : return new MenuScreen();
+		         case KeyEvent.VK_E : return new LoseScreen(); 
+		         case KeyEvent.VK_LEFT:
+		         case KeyEvent.VK_H: player.moveBy(-1, 0, 0); break;
+		         case KeyEvent.VK_RIGHT:
+		         case KeyEvent.VK_L: player.moveBy( 1, 0, 0); break;
+		         case KeyEvent.VK_UP:
+		         case KeyEvent.VK_K: player.moveBy( 0,-1, 0); break;
+		         case KeyEvent.VK_DOWN:
+		         case KeyEvent.VK_J: player.moveBy( 0, 1, 0); break;
 	         }
 	        
-	         switch (key.getKeyChar()){
+	         switch (key.getKeyChar())
+	         {
 	         case 'g': player.pickup(); break;
 	         case '<':
-//	             if (userIsTryingToWin())
-//	              return userExits();
-//	             else 
+
 	             if(world.returnTile(player.x, player.y, player.z) == Tile.STAIRS_UP && player.z == 0)
 	             {
 	            	 for (Item item : player.getInventory().getItems())
@@ -274,13 +265,16 @@ public class GameScreen implements Screen {
 	         	            return new WinScreen();
 	         	        }
 	         	    }
-	         	    return this;
+	         	    //return this;
 	             }
 	             else if(world.returnTile(player.x, player.y, player.z) == Tile.STAIRS_UP)
 	             {
-	            	 try {
+	            	 try 
+	            	 {
 						SaveState.save();
-					} catch (IOException e) {
+	            	 } 
+	            	 catch (IOException e) 
+	            	 {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
@@ -290,12 +284,15 @@ public class GameScreen implements Screen {
 	             }
 	         case '>': 
 	        	 if(world.returnTile(player.x, player.y, player.z) == Tile.STAIRS_DOWN)
-	        	 {	 try {
-					SaveState.save();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+	        	 {
+	        		 try 
+	        		 {
+	        			 SaveState.save();
+	        		 } 
+	        		 catch (IOException e) {
+					
+	        			 e.printStackTrace();
+	        		 }
 	        		 player.moveBy( 0, 0, 1); break;
 	        	 }
 	        	 break;
@@ -303,11 +300,13 @@ public class GameScreen implements Screen {
 	     }
 	    
 	     if (subscreen == null)
-	         world.update();
-	    
+	     {
+	    	 world.update();
+	     }
 	     if (player.getHealth() < 1)
+	     {
 	         return new LoseScreen();
-	    
+	     }
 	     return this;
 
 	 }

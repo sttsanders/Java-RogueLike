@@ -33,7 +33,6 @@ public class CreatureFactory implements Serializable {
 	public Creature newPlayer(List<String> messages){
 		Creature player = new Creature(world, (char)1,"You", AsciiPanel.brightWhite, 400, 0, 0);
 
-		
 		world.addAtEmptyLocation(player, 0);
 		new PlayerAi(player, messages);
 
@@ -47,7 +46,7 @@ public class CreatureFactory implements Serializable {
 	 */
 	public Creature newGhoul(int depth)
 	{
-		Creature ghoul = new Creature(world, 'G',"Ghoul", AsciiPanel.brightGreen, 70, 15, 5);
+		Creature ghoul = new Creature(world, 'G',"Ghoul", AsciiPanel.brightGreen, 70, 15 + depth, 5);
 		world.addAtEmptyLocation(ghoul, depth);
 		new GhoulAi(ghoul, player);
 		return ghoul;
@@ -59,7 +58,7 @@ public class CreatureFactory implements Serializable {
 	 */
 	public Creature newCopyCat(int depth)
 	{
-		Creature copyCat = new Creature(world, 'C',"Copy Cat", AsciiPanel.brightRed, 20, 5, 1);
+		Creature copyCat = new Creature(world, 'C',"Copy Cat", AsciiPanel.brightRed, 20, 5 + depth, 1);
 		world.addAtEmptyLocation(copyCat, depth);
 		new CopyCatAi(copyCat, this);
 		return copyCat;
@@ -79,7 +78,7 @@ public class CreatureFactory implements Serializable {
 	 */
 	public Creature newCopyCatCopy(int depth)
 	{
-		Creature copyCatClone = new Creature(world, 'c',"Copy Cat Clone", AsciiPanel.brightRed, 20, 5, 1);
+		Creature copyCatClone = new Creature(world, 'c',"Copy Cat Clone", AsciiPanel.brightRed, 20, 4 + depth, 1);
 		world.addAtEmptyLocation(copyCatClone, depth);
 		new CopyCatCloneAi(copyCatClone);
 		return copyCatClone;
@@ -91,7 +90,7 @@ public class CreatureFactory implements Serializable {
 	 */
 	public Creature newKobold(int depth, Creature p)
 	{
-		Creature kobold = new Creature(world, 'K',"Kobold", AsciiPanel.brightYellow, 15, 6, 0);
+		Creature kobold = new Creature(world, 'K',"Kobold", AsciiPanel.brightYellow, 15, 6 + depth, 0);
 		world.addAtEmptyLocation(kobold, depth);
 		new KoboldAi(kobold, p);
 		return kobold;
@@ -103,7 +102,7 @@ public class CreatureFactory implements Serializable {
 	 */
 	public Creature newQuillBoar(int depth)
 	{
-		Creature quillBoar = new Creature(world, 'Q',"Quillboar", AsciiPanel.brightMagenta, 80, 12, 4);
+		Creature quillBoar = new Creature(world, 'Q',"Quillboar", AsciiPanel.brightMagenta, 80, 5 + depth, 4);
 		world.addAtEmptyLocation(quillBoar, depth);
 		new QuillBoarAi(quillBoar);
 		return quillBoar;
@@ -130,27 +129,17 @@ public class CreatureFactory implements Serializable {
 		newPlayer(messages);
 		for (int z = 0; z < world.getDepth(); z++)
 		{
-//			for (int i = 0; i < 1; i++){
-//		        newGhoul(z);
-//		    }
-//		
-		    for (int i = 0; i < 15; i++){
+		    for (int i = 0; i < 10; i++){
 		        newQuillBoar(z);
 		    }
 		    
-//		    for (int i = 0; i < 0; i++){
-//		        newCopyCat(z);
-//		    }
-		    
-		    for (int i = 0; i < 15; i++){
+		    for (int i = 0; i < 10; i++){
 		        newKobold(z, player);
 		    }
-//		    
-		    for (int i = 0; i < 4; i++){
+    
+		    for (int i = 0; i < 2; i++){
 		        newBeeNest(z);
 		    }
-		    
-		    
 		}
 		
 		newDragon(5, player);
@@ -162,7 +151,7 @@ public class CreatureFactory implements Serializable {
 	 */
 	public Creature newBee(int depth) {
 		// TODO Auto-generated method stub
-		Creature bee = new Creature(world, 'b',"Bee", AsciiPanel.cyan, 5, 20, 0);
+		Creature bee = new Creature(world, 'b',"Bee", AsciiPanel.cyan, 1, 6 + depth, 0);
 		world.addAtEmptyLocation(bee, depth);
 		new BeeAi(bee);
 		return bee;

@@ -16,13 +16,14 @@ public class GhoulAi extends CreatureAi {
 	}
 	
 	
-	public void onUpdate(){
-
-	          wanderAround();
+	public void onUpdate()
+	{
+		wanderAround();
     }
 	
-	public void hunt(Creature target){
+	public void hunt(Creature target)
+	{
 
-	  }
+	}
 	
 }

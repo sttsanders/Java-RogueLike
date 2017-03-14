@@ -8,7 +8,8 @@ import Resources.Tile;
 public class PlayerAi extends CreatureAi {
 	private List<String> messages;
 	
-	public PlayerAi(Creature creature, List<String> messages) {
+	public PlayerAi(Creature creature, List<String> messages) 
+	{
         super(creature);
         this.messages = messages;
     }

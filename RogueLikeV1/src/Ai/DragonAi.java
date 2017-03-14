@@ -17,12 +17,14 @@ public class DragonAi extends CreatureAi
 		System.out.println(target);
 	}
 	
-	public void onUpdate(){
+	public void onUpdate()
+	{
 
 	          wanderAround();
     }
 	
-	public void hunt(Creature target){
+	public void hunt(Creature target)
+	{
 
 	  }
 }

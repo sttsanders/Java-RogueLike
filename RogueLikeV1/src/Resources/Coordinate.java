@@ -4,19 +4,22 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Coordinate {
+public class Coordinate 
+{
 	public int x;
     public int y;
     public int z;
 
-    public Coordinate(int x, int y, int z){
+    public Coordinate(int x, int y, int z)
+    {
         this.x = x;
         this.y = y;
         this.z = z;
     }
     
     @Override
-    public int hashCode() {
+    public int hashCode() 
+    {
         final int prime = 31;
         int result = 1;
         result = prime * result + x;
@@ -26,7 +29,8 @@ public class Coordinate {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Object obj) 
+    {
         if (this == obj)
         {
         	return true;
@@ -57,7 +61,8 @@ public class Coordinate {
         return true;
     }
     
-    public List<Coordinate> whichEightNeighbors(){
+    public List<Coordinate> whichEightNeighbors()
+    {
         List<Coordinate> points = new ArrayList<Coordinate>();
       
         for (int otherx = -1; otherx <= 1; otherx++){

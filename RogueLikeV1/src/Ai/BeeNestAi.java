@@ -7,17 +7,20 @@ public class BeeNestAi extends CreatureAi{
 	public CreatureFactory f;
 	private int cloneCounter;
 	
-	public BeeNestAi(Creature c,CreatureFactory factory) {
+	public BeeNestAi(Creature c,CreatureFactory factory) 
+	{
 		super(c);
 		this.f = factory;
 	}
 	
-	public void onUpdate(){
+	public void onUpdate()
+	{
         if (cloneCounter < 30 && Math.random() < 0.5)
             multiply();
     }
  
-    private void multiply(){
+    private void multiply()
+    {
         int x = creature.x + (int)(Math.random() * 11) - 5;
         int y = creature.y + (int)(Math.random() * 11) - 5;
   

@@ -16,12 +16,14 @@ public abstract class InventoryScreen implements Screen {
 	protected abstract boolean isAcceptable(Item item);
 	protected abstract Screen use(Item item);
 	
-	public InventoryScreen(Creature player){
+	public InventoryScreen(Creature player)
+	{
 		this.player = player;
 		this.letters = "abcdefghijklmnopqrstuvwxyz";
 	}
 	
-	public void displayOutput(AsciiPanel terminal) {
+	public void displayOutput(AsciiPanel terminal) 
+	{
 		ArrayList<String> lines = getList();
 		
 		int y = 23 - lines.size();
@@ -40,7 +42,8 @@ public abstract class InventoryScreen implements Screen {
 		terminal.repaint();
 	}
 	
-	private ArrayList<String> getList() {
+	private ArrayList<String> getList() 
+	{
 		ArrayList<String> lines = new ArrayList<String>();
 		Item[] inventory = player.getInventory().getItems();
 		
@@ -57,7 +60,8 @@ public abstract class InventoryScreen implements Screen {
 		return lines;
 	}
 
-	public Screen respondToUserInput(KeyEvent key) {
+	public Screen respondToUserInput(KeyEvent key) 
+	{
 		char c = key.getKeyChar();
 
 		Item[] items = player.getInventory().getItems();

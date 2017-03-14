@@ -10,8 +10,9 @@ import java.io.ObjectOutputStream;
 import Creatures.Creature;
 
 public class SaveState {
-	//creates a savefile or overwrites the previous one.
-	public static void save() throws IOException {
+
+	public static void save() throws IOException 
+	{
 		FileOutputStream save = new FileOutputStream("lvlSave.xml");
 		ObjectOutputStream outputStream = new ObjectOutputStream(save);
 		outputStream.writeObject(Screen.GameScreen.world);
@@ -23,9 +24,9 @@ public class SaveState {
 	}
 	
 	//loads a savefile
-	//The suppressed warnings is because of the cast made from the list of messages to an object.
 	@SuppressWarnings("unchecked")
-	public static void load() throws IOException, ClassNotFoundException {
+	public static void load() throws IOException, ClassNotFoundException 
+	{
 		FileInputStream save = new FileInputStream("lvlSave.xml");
 		ObjectInputStream inputStream = new ObjectInputStream(save);
 		Screen.GameScreen.world = (World) inputStream.readObject();
@@ -36,8 +37,9 @@ public class SaveState {
 		return;
 	}
 	
-	//deletes a savefile. Might throw exception if none???
-	public static void deleteSave() {
+
+	public static void deleteSave() 
+	{
 		File saveFile = new File("lvlSave.xml");
 		saveFile.delete();
 	}

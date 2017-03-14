@@ -13,7 +13,8 @@ public class WorldBuilder {
 	private int[][][] regions;
 	private int nextRegion;
 
-	public WorldBuilder(int width, int height, int depth) {
+	public WorldBuilder(int width, int height, int depth) 
+	{
 		this.width = width;
 		this.height = height;
 		this.depth = depth;
@@ -22,11 +23,13 @@ public class WorldBuilder {
 		this.nextRegion = 1;
 	}
 
-	public World build() {
+	public World build() 
+	{
 		return new World(tiles);
 	}
 	
-	private WorldBuilder addExitStairs() {
+	private WorldBuilder addExitStairs() 
+	{
         int x = -1;
         int y = -1;
     
@@ -57,7 +60,7 @@ public class WorldBuilder {
 
 	private WorldBuilder smooth(int times) 
 	{
-		Tile[][][] tiles2 = new Tile[width][height][depth];
+		Tile[][][] tempTiles = new Tile[width][height][depth];
 		for (int time = 0; time < times; time++) 
 		{
 
@@ -69,13 +72,13 @@ public class WorldBuilder {
 						int floors = 0;
 						int rocks = 0;
 	
-						for (int ox = -1; ox <= 1; ox++) {
-							for (int oy = -1; oy <= 1; oy++) {
-								if (x + ox < 0 || x + ox >= width || y + oy < 0 || y + oy >= height)
+						for (int neighborX = -1; neighborX <= 1; neighborX++) {
+							for (int neighborY = -1; neighborY <= 1; neighborY++) {
+								if (x + neighborX < 0 || x + neighborX >= width || y + neighborY < 0 || y + neighborY >= height)
 								{
 									continue;
 								}
-								if (tiles[x + ox][y + oy][z] == Tile.FLOOR)
+								if (tiles[x + neighborX][y + neighborY][z] == Tile.FLOOR)
 								{
 									floors++;
 								}
@@ -85,11 +88,11 @@ public class WorldBuilder {
 								}
 							}
 						}
-						tiles2[x][y][z] = floors >= rocks ? Tile.FLOOR : Tile.WALL;
+						tempTiles[x][y][z] = floors >= rocks ? Tile.FLOOR : Tile.WALL;
 					}
 				}
 			}
-			tiles = tiles2;
+			tiles = tempTiles;
 		}
 		return this;
 	}
@@ -107,7 +110,6 @@ public class WorldBuilder {
 					if (tiles[x][y][z] != Tile.WALL && regions[x][y][z] == 0)
 					{
 						int size = fillRegion(nextRegion++, x, y, z);
-						System.out.println("print size: " + size);
 						if (size < 25)
 						{
 							removeRegion(nextRegion - 1, z);
@@ -134,6 +136,7 @@ public class WorldBuilder {
 		}
 	}
 	
+	//floodfill algoritm
 	private int fillRegion(int region, int x, int y, int z) 
 	{
 		int size = 1;
@@ -148,12 +151,14 @@ public class WorldBuilder {
 			for (Coordinate neighbor : p.whichEightNeighbors())
 			{
 				if (neighbor.x < 0 || neighbor.y < 0 || neighbor.x >= width || neighbor.y >= height)
+				{		
 					continue;
-				
+				}
 				if (regions[neighbor.x][neighbor.y][neighbor.z] > 0
 						|| tiles[neighbor.x][neighbor.y][neighbor.z] == Tile.WALL)
+				{
 					continue;
-
+				}
 				size++;
 				regions[neighbor.x][neighbor.y][neighbor.z] = region;
 				open.add(neighbor);
@@ -162,14 +167,17 @@ public class WorldBuilder {
 		return size;
 	}
 	
-	public WorldBuilder connectRegions(){
-		for (int z = 0; z < depth-1; z++){
+	public WorldBuilder connectRegions()
+	{
+		for (int z = 0; z < depth-1; z++)
+		{
 			connectRegionsDown(z);
 		}
 		return this;
 	}
 	
-	private void connectRegionsDown(int z){
+	private void connectRegionsDown(int z)
+	{
 		List<String> connected = new ArrayList<String>();
 		
 		for (int x = 0; x < width; x++)
@@ -194,7 +202,6 @@ public class WorldBuilder {
 		int stairs = 0;
 		do
 		{
-			System.out.println(candidates.size());
 			Coordinate p = candidates.remove(0);
 			tiles[p.x][p.y][z] = Tile.STAIRS_DOWN;
 			tiles[p.x][p.y][z+1] = Tile.STAIRS_UP;
@@ -226,24 +233,15 @@ public class WorldBuilder {
 	
 	public WorldBuilder makeCaves() {
 		return randomizeTiles()
-				.smooth(2)
+				.smooth(5)
 				.createRegions()
 				.connectRegions()
 				.addExitStairs();
 
-//		SetupTilesArray();
-//
-//        CreateRoomsAndCorridors();
-//
-//        SetTilesValuesForRooms();
-//        SetTilesValuesForCorridors();
-//
-//        InstantiateTiles();
-//        InstantiateOuterWalls();
 	}
 	
 	
-	//-------------------------------------New algorithm-------------------------------------------------
+	//-------------------------------------New algorithm (gone for now)-------------------------------------------------
 	
 	
 	

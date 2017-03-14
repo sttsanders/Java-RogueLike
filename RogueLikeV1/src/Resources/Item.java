@@ -43,7 +43,8 @@ public class Item implements Serializable {
     
     
     
-    public Item(char glyph, Color color, String name, ItemType type, int attack, int defense){
+    public Item(char glyph, Color color, String name, ItemType type, int attack, int defense)
+    {
         this.glyph = glyph;
         this.color = color;
         this.name = name;
