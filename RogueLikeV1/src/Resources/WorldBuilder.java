@@ -107,6 +107,7 @@ public class WorldBuilder {
 			{
 				for (int y = 0; y < height; y++)
 				{
+					//if floor and no region number
 					if (tiles[x][y][z] != Tile.WALL && regions[x][y][z] == 0)
 					{
 						int size = fillRegion(nextRegion++, x, y, z);
@@ -148,14 +149,19 @@ public class WorldBuilder {
 		{
 			Coordinate p = open.remove(0);
 
+			//[x][x][x]
+			//[x][p][x]
+			//[x][x][x]
 			for (Coordinate neighbor : p.whichEightNeighbors())
 			{
+				//if coordinates out of bound
 				if (neighbor.x < 0 || neighbor.y < 0 || neighbor.x >= width || neighbor.y >= height)
 				{		
 					continue;
 				}
-				if (regions[neighbor.x][neighbor.y][neighbor.z] > 0
-						|| tiles[neighbor.x][neighbor.y][neighbor.z] == Tile.WALL)
+				
+				//if neighbor region set or neighbor is wall
+				if (regions[neighbor.x][neighbor.y][neighbor.z] > 0 || tiles[neighbor.x][neighbor.y][neighbor.z] == Tile.WALL)
 				{
 					continue;
 				}
@@ -210,6 +216,7 @@ public class WorldBuilder {
 		while (candidates.size() / stairs > 250);
 	}
 
+	
 	public List<Coordinate> findRegionOverlaps(int z, int r1, int r2) 
 	{
 		ArrayList<Coordinate> candidates = new ArrayList<Coordinate>();

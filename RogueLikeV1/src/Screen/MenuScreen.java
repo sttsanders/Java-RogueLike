@@ -17,7 +17,7 @@ public class MenuScreen implements Screen {
 	public void displayOutput(AsciiPanel terminal) {
 		// TODO Auto-generated method stub
 
-		terminal.write("(C)ontinue Game", 1, 3);
+		terminal.write("(N)ew Game", 1, 3);
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import Ai.CreatureAi;
 import Resources.Dice;
+import Resources.DiceType;
 import Resources.Inventory;
 import Resources.Item;
 import Resources.ItemType;
@@ -117,16 +118,20 @@ private World world;
 	    	  return;
 	      }
 	  
-	      if (item.getType() == ItemType.ARMOR){
+	      if (item.getType() == ItemType.ARMOR)
+	      {
 	          this.equippedArmor = null;
 	      } 
-	      if (item.getType() == ItemType.WEAPON){
+	      if (item.getType() == ItemType.WEAPON)
+	      {
 	    	  this.equippedWeapon = null;
 	      } 
-	      if (item.getType() == ItemType.HELMET){
+	      if (item.getType() == ItemType.HELMET)
+	      {
 	    	  this.equippedHelmet = null;
 	      } 
-	      if (item.getType() == ItemType.SHIELD){
+	      if (item.getType() == ItemType.SHIELD)
+	      {
 	    	  this.equippedShield = null;
 	      } 
 	  }
@@ -169,7 +174,8 @@ private World world;
 	 * method for attacking the opponent. Calculates damage (from Dice method) and damage(reduction) from items and allows for monster status
 	 * @param opponent
 	 */
-	public void attack(Creature opponent){
+	public void attack(Creature opponent)
+	{
 		int opponentDefense = opponent.getDefenseValue();
 		if(opponent.getEquippedArmor() != null)
 		{
@@ -186,8 +192,7 @@ private World world;
 			equipmentAttack += getEquippedWeapon().getAttackBonus();
 			
 		}
-        int damageDone = (dice.rollDice(1, 6) + equipmentAttack ) 
-        		- opponentDefense;
+        int damageDone = (dice.rollDice(1, DiceType.D6) + equipmentAttack ) - opponentDefense;
         
         
         if(damageDone < 0)
@@ -209,7 +214,7 @@ private World world;
 	    {
 	    	monsterStatus = "almost dead.";
 	    }
-        
+        System.out.println("attack");
         notify("You hit " + opponent.getName() + " for " + damageDone + " damage. " + opponent.getName() + " is " + monsterStatus);
         
         
@@ -233,7 +238,7 @@ private World world;
 	 * @param opponent
 	 */
 	public void counterAttack(Creature opponent){
-		int damageDone = (dice.rollDice(1, 6) + getAttackValue() ) - opponent.getDefenseValue();
+		int damageDone = (dice.rollDice(1, DiceType.D6) + getAttackValue() ) - opponent.getDefenseValue();
         if(damageDone < 0)
         {
         	damageDone = 0;
@@ -261,8 +266,8 @@ private World world;
      * modifies player hp and shows amount of damage on screen. on death remove enemy
      * @param amount
      */
-    public void modifyHp(int amount) {
-        
+    public void modifyHp(int amount) 
+    {    
     	 	currentHealth -= amount;
     	 	notify("You took " + amount + " damage from the counter attack!");
     	    if (currentHealth < 1) {
@@ -285,7 +290,7 @@ private World world;
 	    this.attackValue = attack;
 	    this.defenseValue = defense;
 	    this.name = name;
-	    this.inventory = new Inventory(30);
+	    this.inventory = new Inventory(50);
 	    this.visionRadius = 9;
 	}
 	
@@ -321,7 +326,7 @@ private World world;
 	 */
 	public void heal()
 	{
-		if(currentHealth < maxHealth )
+		if(currentHealth < maxHealth && Math.random() < 0.1)
 		{
 			currentHealth++;
 		}
@@ -378,7 +383,7 @@ private World world;
             	}
             	else
             	{
-            		notify("Currently equipped stuff is better!");
+            		notify("Currently equipped stuff is better! Adding to Inventory.");
             		this.equip(item);
             	}
             }
@@ -392,7 +397,7 @@ private World world;
 	                }
 	                else
 	                {
-	                	notify("Currently equipped stuff is better!");
+	                	notify("Currently equipped stuff is better! Adding to Inventory.");
 	                	inventory.addToInventory(item);
 	                }
             	}
@@ -412,7 +417,7 @@ private World world;
 	                }
 	                else
 	                {
-	                	notify("Currently equipped stuff is better!");
+	                	notify("Currently equipped stuff is better! Adding to Inventory.");
 	                	inventory.addToInventory(item);
 	                }
             	}
@@ -433,7 +438,7 @@ private World world;
 	                }
 	                else
 	                {
-	                	notify("Currently equipped stuff is better!");
+	                	notify("Currently equipped stuff is better! Adding to Inventory.");
 	                	inventory.addToInventory(item);
 	                }
             	}

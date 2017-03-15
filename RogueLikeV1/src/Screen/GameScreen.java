@@ -35,19 +35,17 @@ public class GameScreen implements Screen {
 		messages = new ArrayList<String>();
 		
 		
-		File save = new File("lvlSave.xml");
-		if (save.exists()) {
-			try {
-				SaveState.load();
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-				System.out.println("Could not open save file, may be corrupted :(");
-			} catch (IOException e) {
-				e.printStackTrace();
-				System.out.println("Could not open save file, may be corrupted :(");
-			}
-		} else {
-			System.out.println("Save not found, starting new game...");
+//		File save = new File("lvlSave.xml");
+//		if (save.exists()) {
+//			try {
+//				SaveState.load();
+//			} catch (ClassNotFoundException e) {
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		} else {
+//			System.out.println("Save not found, starting new game...");
 			createWorld();
 			CreatureFactory cF = new CreatureFactory(world, messages);
 			cF.createCreatures();
@@ -55,23 +53,13 @@ public class GameScreen implements Screen {
 			iF.createItems();
 			createPlayer(cF);
 		}
-	}
-	
-	public GameScreen(World w)
-	{
-		screenWidth = 100;
-		screenHeight = 48;
-		messages = new ArrayList<String>();
-		this.world = w;
-	}
-	
-	
+	//}
+
 	private void createPlayer(CreatureFactory cF)
 	{
 		player = cF.newPlayer(messages);
 		
 	}
-
 	private void displayMessages(AsciiPanel terminal, List<String> messages)
 	{
 	    int top = screenHeight - messages.size();
@@ -81,24 +69,20 @@ public class GameScreen implements Screen {
 	    }
 	    messages.clear();
 	}
-	
 	private void createWorld()
 	{
 		world = new WorldBuilder(120, 68, 6)
 					.makeCaves()
 					.build();
 	}
-	
 	public int getScrollX() 
 	{ 
 		return Math.max(0, Math.min(player.x - screenWidth / 2, world.getWidth() - screenWidth)); 
 	}
-	
 	public int getScrollY() 
 	{ 
 		return Math.max(0, Math.min(player.y - screenHeight / 2, world.getHeight() - screenHeight)); 
 	}
-	
 	@Override
 	public void displayOutput(AsciiPanel terminal)
 	{
@@ -108,13 +92,12 @@ public class GameScreen implements Screen {
 		
 		displayTiles(terminal, left, top);
 		
-		terminal.write(player.getGlyph(), player.x - left, player.y - top, player.getColor());
+		//terminal.write(player.getGlyph(), player.x - left, player.y - top, player.getColor());
 		
 		showUI(terminal);
 		
 		displayMessages(terminal, messages);
 	}
-
 	private void showUI(AsciiPanel terminal)
 	{
 		showHealth(terminal);
@@ -220,13 +203,16 @@ public class GameScreen implements Screen {
 
 				Creature creature = world.returnCreature(wx, wy, player.z);
 				if (creature != null)
+				{
 					terminal.write(creature.getGlyph(), creature.x - left, creature.y - top, creature.getColor());
+				}
 				else
+				{
 					terminal.write(world.returnGlyph(wx, wy, player.z), x, y, world.returnColor(wx, wy, player.z));
+				}
 			}
 		}
 	}
-	
 	@Override
 	public Screen respondToUserInput(KeyEvent key)
 	{
@@ -265,7 +251,6 @@ public class GameScreen implements Screen {
 	         	            return new WinScreen();
 	         	        }
 	         	    }
-	         	    //return this;
 	             }
 	             else if(world.returnTile(player.x, player.y, player.z) == Tile.STAIRS_UP)
 	             {
