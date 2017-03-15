@@ -254,15 +254,15 @@ public class GameScreen implements Screen {
 	             }
 	             else if(world.returnTile(player.x, player.y, player.z) == Tile.STAIRS_UP)
 	             {
-	            	 try 
-	            	 {
-						SaveState.save();
-	            	 } 
-	            	 catch (IOException e) 
-	            	 {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+//	            	 try 
+//	            	 {
+//						SaveState.save();
+//	            	 } 
+//	            	 catch (IOException e) 
+//	            	 {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
 	            	 player.moveBy( 0, 0, -1); 
 		             break;
 
